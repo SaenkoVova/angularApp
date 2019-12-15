@@ -1,9 +1,9 @@
 <ul>
-    <li *ngFor="let todo of todos; let i = index">
+    <li *ngFor="let todo of todosService.todos; let i = index">
         <span [class.done]="todo.completed">
-            <input [checked]="todo.completed" type="checkbox">
+            <input [checked]="todo.completed" type="checkbox" (change)="onChange(todo.id)">
             <strong>{{i + 1}}</strong>
-            {{todo.title}}
+            {{todo.title | date: 'medium'}}
         </span>
     </li>
 </ul>
