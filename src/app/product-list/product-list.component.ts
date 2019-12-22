@@ -1,4 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+export interface Product {
+  id: number,
+  title: string,
+  description: string,
+  price: number
+}
 
 @Component({
   selector: 'app-product-list',
@@ -6,8 +13,22 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  @Input() products;
+
   constructor() { }
+
+  products: Product[] = [
+    {id: 1, title: 'Phone XL', description: 'A large phone with one of the best screens', price: 100},
+    {id: 2, title: 'Phone mini', description: 'A great phone with one of the best cameras', price: 200},
+    {id: 3, title: 'Phone standard', description: '', price: 800}
+  ]
+
+  onNotify() {
+    window.alert('You will be notified')
+  }
+
+  share() {
+    window.alert('Product has been shared')
+  }
 
   ngOnInit() {
   }
