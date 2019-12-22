@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 
 export interface Product {
   id: number,
@@ -12,6 +12,8 @@ export interface Product {
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
+
+ @Injectable({providedIn: 'root'})
 export class ProductListComponent implements OnInit {
 
   constructor() { }
