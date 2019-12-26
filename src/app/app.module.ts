@@ -8,7 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
-import { ProductAlertsComponent } from './product-alerts/product-alerts.component'
+import { ProductAlertsComponent } from './product-alerts/product-alerts.component';
+import { CartComponent } from './cart/cart.component'
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ProductAlertsComponent } from './product-alerts/product-alerts.componen
     HeaderComponent,
     ProductListComponent,
     ProductDetailsComponent,
-    ProductAlertsComponent
+    ProductAlertsComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,8 @@ import { ProductAlertsComponent } from './product-alerts/product-alerts.componen
     FormsModule,
     RouterModule.forRoot([
       {path: '', component: ProductListComponent},
-      {path: 'products/:productId', component: ProductDetailsComponent}
+      {path: 'products/:productId', component: ProductDetailsComponent},
+      {path: 'cart', component: CartComponent}
     ])
   ],
   providers: [],
