@@ -6,10 +6,10 @@
             </h5>
             <p class="card-text">{{item.description}}</p>
             <h3>{{item.price}} $</h3>
-            <button class="btn btn-info" (click)="addToCart(product)">Add to cart</button>
         </div>
     </div>
     <button class="btn btn-danger m-5" (click)="clearCart()">Clear cart</button>
+    <button class="btn btn-success m-5" [routerLink]="['/order']" routerLinkActive="router-link-active" >To order</button>
 </div>
 
 <ng-template #noProducts>
