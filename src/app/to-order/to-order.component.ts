@@ -23,6 +23,7 @@ export class ToOrderComponent implements OnInit {
   }
 
   order(customerData) {
-    console.log(customerData)
+    console.warn('Your order has been submited', customerData)
+    this.checkoutForm.reset()
   }
 }
