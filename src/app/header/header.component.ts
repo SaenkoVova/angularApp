@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faBars, faBox } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  faBars = faBars;
+  faBox = faBox;
+  phone = '0674470622';
+  panelLable = 'Вітаємо, увійдіть в особистий кабінет';
+  placeholder = 'Я шукаю';
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }

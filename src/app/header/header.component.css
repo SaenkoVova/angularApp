@@ -1,0 +1,48 @@
+.header {
+    background-color: #122538;
+}
+.layout {
+    margin: 0 32px;
+}
+.header-topline {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5px;
+}
+.header-topline-phones, .header-topline-auth {
+    color: #fff;
+    cursor: pointer;
+}
+.phone {
+    margin-left: 10px;
+    border-bottom: 1px dashed #fff;
+}
+.phone:hover {
+    border: none;
+}
+.header-bottomline {
+    display: flex;
+    align-items: center;
+}
+.header-botomline-logo {
+    display: block;
+    padding: 5px 50px;
+}
+.menu-toogler {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.5);
+    border-radius: 3px;
+    color: #fff;
+    display: block;
+    height: 40px;
+}
+.menu-toogler-text {
+    margin-left: 10px;
+}
+.header-search {
+    height: 40px;
+    margin-left: 25px;
+}
+.header-search-form {
+    display: flex;
+}

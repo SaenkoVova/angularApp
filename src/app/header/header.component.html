@@ -1,3 +1,32 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    
-</nav>
+<header class="header">
+  <div class="layout">
+    <div class="header-topline">
+      <div class="header-topline-phones">
+        <fa-icon [icon]="faBars"></fa-icon>
+        <span class="phone">{{phone}}</span>
+      </div>
+      <div class="header-topline-auth">
+        <i class="fas fa-phone header-phones-item"></i>{{panelLable}}
+      </div>
+    </div>
+    <div class="header-bottomline">
+      <a href="/" class="header-botomline-logo">
+        <img width="80" height="80" src="https://go-go.ua/image/catalog/logo_256.png" alt="">
+      </a>
+      <button class="menu-toogler" aria-label="Каталог товарів">
+        <fa-icon [icon]="faBox"></fa-icon>
+        <span class="menu-toogler-text">Каталог товарів</span>
+      </button>
+      <div class="header-search">
+        <form class="header-search-form">
+          <div class="header-search-form-inner">
+            <div>
+              <input type="text" [placeholder]="placeholder">
+            </div>
+          </div>
+          <button type="submit">Знайти</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
