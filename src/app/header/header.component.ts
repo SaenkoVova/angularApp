@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faBars, faBox } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBox, faCartArrowDown, faHeart} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +9,8 @@ import { faBars, faBox } from '@fortawesome/free-solid-svg-icons';
 export class HeaderComponent implements OnInit {
   faBars = faBars;
   faBox = faBox;
+  faCartArrowDown = faCartArrowDown;
+  faHeart = faHeart;
   phone = '0674470622';
   panelLable = 'Вітаємо, увійдіть в особистий кабінет';
   placeholder = 'Я шукаю';

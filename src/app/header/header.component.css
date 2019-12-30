@@ -42,7 +42,51 @@
 .header-search {
     height: 40px;
     margin-left: 25px;
+    width: 60%;
 }
 .header-search-form {
     display: flex;
+    width: 100%;
+    align-items: center;
+}
+.header-search-form-inner {
+    display: flex;
+    flex: 1;
+}
+.header-search-form-inner-input-wraper {
+    width: 100%;
+}
+.header-search-form-inner-input {
+    width: 100%;
+    height: 40px;
+    padding-left: 40px;
+    background-image: url('src/assets/search.svg');
+    background-repeat: no-repeat;
+    background-position: 12px;
+    border: none;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.header-search-button {
+    display: block;
+    height: 40px;
+    font-size: 16px;
+    color: #fff;
+    background: #00A046;
+    border: none;
+    border-radius: 0 3px 3px 0;
+    line-height: normal;
+    padding: 1px 16px;
+}
+.header-actions {
+    display: flex;
+    list-style: none;
+    color: #a6a5a5;
+    margin: 0;
+    align-items: center;
+}
+.header-actions-item-icon {
+    font-size: 30px;
+    margin: 0 20px;
+    cursor: pointer;
 }
