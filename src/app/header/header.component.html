@@ -1,12 +1,48 @@
 <header class="header">
+  <div class="modal-window-background" *ngIf="authVisible">
+    <div class="modal-window">
+      <div class="modal-window-header">
+        <h3>Вхід</h3>
+        <button class="modal-window-header-button" (click)="toggleAuthVisible()" aria-label="Закрити модальне вікно">
+          <fa-icon [icon]="faWindowClose"></fa-icon>
+        </button>
+      </div>
+      <div class="modal-window-body">
+        <form class="modal-window-body-auth">
+         <div class="form-row">
+            <label for="email">Ел. пошта або телефон</label>
+            <input type="email" id="email" class="form-row-input">
+         </div>
+        <div class="form-row">
+          <label for="password">Пароль</label>
+          <input type="password" id="password" class="form-row-input">
+        </div>
+        <div class="form-row">
+          <div class="form-row-check">
+            <input type="checkbox" [checked]="rememberMe" id="rememberme">
+            <label for="rememberme" class="form-row-check-label">Запам'ятати мене</label>
+          </div>
+          <a class="form-row-check-link">Нагадати пароль</a>
+        </div>
+        <div class="form-row">
+          <button class="form-row-button" (click)="auth.googleSignin()">Увійти</button>
+          <a [routerLink]="['/']" routerLinkActive="router-link-active" class="signup">Зареєструватися</a>
+        </div>
+        </form>
+        <div class="modal-window-body-social">
+
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="layout">
     <div class="header-topline">
       <div class="header-topline-phones">
-        <fa-icon [icon]="faBars"></fa-icon>
+        <fa-icon [icon]="faPhone"></fa-icon>
         <span class="phone">{{phone}}</span>
       </div>
       <div class="header-topline-auth">
-        <i class="fas fa-phone header-phones-item"></i>{{panelLable}}
+        <a *ngIf="auth.user$ | async as user; else login">Authorized</a>
       </div>
     </div>
     <div class="header-bottomline">
@@ -38,3 +74,7 @@
     </div>
   </div>
 </header>
+
+<ng-template #login>
+  <a (click)="toggleAuthVisible()">Увійти</a>
+</ng-template>

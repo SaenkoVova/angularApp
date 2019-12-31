@@ -13,6 +13,12 @@ import { CartComponent } from './cart/cart.component';
 import { ShippingComponent } from './shipping/shipping.component';
 import { ToOrderComponent } from './to-order/to-order.component'
 
+import { firebaseConfig } from '../environments/environment'
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,9 +42,16 @@ import { ToOrderComponent } from './to-order/to-order.component'
       {path: 'cart', component: CartComponent},
       {path: 'shipping', component: ShippingComponent},
       {path: 'order', component: ToOrderComponent}
-    ])
+    ]),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule
   ],
-  providers: [],
+  providers: [
+    AngularFireModule,
+    AngularFireAuthModule,
+    AngularFireAuth,
+    AngularFirestore
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

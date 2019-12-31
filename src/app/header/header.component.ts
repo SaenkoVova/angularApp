@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { faBars, faBox, faCartArrowDown, faHeart} from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faBox, faCartArrowDown, faHeart, faWindowClose} from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,17 +8,21 @@ import { faBars, faBox, faCartArrowDown, faHeart} from '@fortawesome/free-solid-
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  faBars = faBars;
+  faPhone = faPhone;
   faBox = faBox;
   faCartArrowDown = faCartArrowDown;
   faHeart = faHeart;
+  faWindowClose = faWindowClose;
   phone = '0674470622';
   panelLable = 'Вітаємо, увійдіть в особистий кабінет';
   placeholder = 'Я шукаю';
-
-  constructor() {}
+  rememberMe = true;
+  authVisible = false;
+  constructor(public auth: AuthService) {}
 
   ngOnInit() {
   }
-
+  toggleAuthVisible() {
+    this.authVisible = !this.authVisible;
+  }
 }
