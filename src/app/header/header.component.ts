@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { faPhone, faBox, faCartArrowDown, faHeart, faWindowClose, faBriefcase} from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
+import { FormBuilder } from '@angular/forms';
+
 
 @Component({
   selector: 'app-header',
@@ -19,11 +21,22 @@ export class HeaderComponent implements OnInit {
   placeholder = 'Я шукаю';
   rememberMe = true;
   authVisible = false;
-  constructor(public auth: AuthService) {}
+  checkoutForm;
+  constructor(
+    public auth: AuthService,
+    private formBuilder: FormBuilder) {
+      this.checkoutForm = this.formBuilder.group({
+        email: '',
+        password: ''
+      })
+    }
 
   ngOnInit() {
   }
   toggleAuthVisible() {
     this.authVisible = !this.authVisible;
+  }
+  signInWithEmailEndPassword(userData) {
+    this.auth.signInWithEmailAndPassword(userData.email, userData.password)
   }
 }

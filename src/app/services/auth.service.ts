@@ -39,6 +39,12 @@ export class AuthService {
     )
   }
 
+  async signInWithEmailAndPassword(email, password) {
+    const provider = new auth.EmailAuthProvider();
+    const credential = await this.afAuth.auth.signInWithEmailAndPassword(email, password)
+    return this.updateUserData(credential.user);
+  }
+
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
