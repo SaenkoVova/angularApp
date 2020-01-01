@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faPhone, faBox, faCartArrowDown, faHeart, faWindowClose} from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faBox, faCartArrowDown, faHeart, faWindowClose, faBriefcase} from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   faCartArrowDown = faCartArrowDown;
   faHeart = faHeart;
   faWindowClose = faWindowClose;
+  faBriefcase = faBriefcase;
   phone = '0674470622';
   panelLable = 'Вітаємо, увійдіть в особистий кабінет';
   placeholder = 'Я шукаю';

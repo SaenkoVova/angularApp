@@ -1,10 +1,10 @@
 <header class="header">
-  <div class="modal-window-background" *ngIf="authVisible">
+  <div class="modal-window-background" *ngIf="!authVisible">
     <div class="modal-window">
       <div class="modal-window-header">
         <h3>Вхід</h3>
         <button class="modal-window-header-button" (click)="toggleAuthVisible()" aria-label="Закрити модальне вікно">
-          <fa-icon [icon]="faWindowClose"></fa-icon>
+          <span class="burger"></span>
         </button>
       </div>
       <div class="modal-window-body">
@@ -19,18 +19,26 @@
         </div>
         <div class="form-row">
           <div class="form-row-check">
-            <input type="checkbox" [checked]="rememberMe" id="rememberme">
+            <input type="checkbox" class="rememberme" [checked]="rememberMe" id="rememberme">
             <label for="rememberme" class="form-row-check-label">Запам'ятати мене</label>
           </div>
           <a class="form-row-check-link">Нагадати пароль</a>
         </div>
         <div class="form-row">
-          <button class="form-row-button" (click)="auth.googleSignin()">Увійти</button>
+          <button class="form-row-button">Увійти</button>
           <a [routerLink]="['/']" routerLinkActive="router-link-active" class="signup">Зареєструватися</a>
         </div>
         </form>
         <div class="modal-window-body-social">
-
+          <p>Увійти як користувач</p>
+          <button class="modal-window-body-social-button">
+            <fa-icon [icon]="faBriefcase"></fa-icon>
+            <p class="modal-window-body-social-button-title">Facebook</p>
+          </button>
+          <button class="modal-window-body-social-button" (click)="auth.googleSignin()">
+            <fa-icon [icon]="faBriefcase"></fa-icon>
+            <p class="modal-window-body-social-button-title">Google</p>
+          </button>
         </div>
       </div>
     </div>
