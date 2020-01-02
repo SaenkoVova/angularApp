@@ -30,7 +30,6 @@ export class AuthService {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
         if(user) {
-          console.log(user);
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         }
         else {
@@ -54,7 +53,6 @@ export class AuthService {
     const provider = new auth.FacebookAuthProvider();
     this.afAuth.auth.signInWithPopup(provider).then((result) => {
       const token = result.credential;
-      console.log(token)
       return this.updateUserData(result.user)
     })
     
