@@ -1,13 +1,23 @@
-<div *ngFor="let product of products;index as productId" class="card mt-4">
-    <div class="card-body">
-        <h5 class="card-title">
-            <a [title]="product.title + 'details'" [routerLink]="['/products', productId]" routerLinkActive="router-link-active">
-                {{product.title}}
-            </a>
-        </h5>
-        <p class="card-text">{{product.description}}</p>
-        <h3>{{product.price}} $</h3>
-        <button class="btn btn-success" (click)="share()">Share</button>
-        <app-product-alerts [product]="product" (notify)="onNotify()"></app-product-alerts>
+<div class="container">
+    <div class="row">
+      <div class="col" *ngIf="products?.length > 0; else noItems">
+        <a [routerLink]="['/products']" routerLinkActive="router-link-active"  *ngFor="let product of products" class="card" style="width: 18rem;">
+          <img [src]="product.imageUrl" class="card-img-top" alt="cardImage">
+          <div class="card-body">
+            <h5 class="card-title">{{product.title}}</h5>
+            <h6>{{product.discountPrice}} ₴</h6>
+            <h3>{{product.price}} ₴</h3>
+            <p *ngIf="product.quantity > 10; else ending">Є в наявності</p>
+            <a href="#" class="btn btn-primary">Додати в корзину</a>
+          </div>
+        </a>
+      </div>
     </div>
 </div>
+
+<ng-template #noItems>
+  <p>No items</p>
+</ng-template>
+<ng-template #ending>
+  <p>Закінчується</p>
+</ng-template>

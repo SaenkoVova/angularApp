@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../services/cart.service';
+import { CartService, Product } from '../services/cart.service';
 
 
 @Component({
@@ -12,16 +12,13 @@ export class ProductListComponent implements OnInit {
 
   constructor(private cartService: CartService) { }
 
-  products = [];
+  products: Product[];
 
   ngOnInit() {
-    this.products = this.cartService.loadData()
+    this.cartService.getProducts().subscribe(items => {
+      this.products = items;
+    });
   }
-  share() {
-    this.cartService.share()
-  }
-  onNotify() {
-    this.cartService.onNotify()
-  }
-
+ 
+  
 }

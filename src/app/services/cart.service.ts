@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 export interface Product {
-  id: number,
-  title: string,
-  description: string,
-  price: number
+  id?: string,
+  title?: string,
+  price?: number,
+  discountPrice?: number,
+  imageUrl?: string
 }
 
 
@@ -13,32 +17,16 @@ export interface Product {
 })
 export class CartService {
 
-  constructor() { }
+  items: Observable<Product[]>;
 
-  items: Product[] = [];
+  constructor(
+    private httpClient: HttpClient,
+    private afs: AngularFirestore) { 
+      this.items = this.afs.collection(`products`).valueChanges();
+    }
 
-  products: Product[] = [
-    {id: 1, title: 'Phone XL', description: 'A large phone with one of the best screens', price: 100},
-    {id: 2, title: 'Phone mini', description: 'A great phone with one of the best cameras', price: 200},
-    {id: 3, title: 'Phone standard', description: '', price: 800}
-  ]
-
-  onNotify() {
-    window.alert('You will be notified')
+  getProducts() {
+    return this.items;
   }
-
-  share() {
-    window.alert('Product has been shared')
-  }
-  loadData() {
-    return this.products
-  }
-  addToCart(product) {
-    window.alert(`Product ${product.title} has been added to cart`)
-    this.products = this.products.filter(p => p.id !== product.id)
-    this.items.push(product)
-  }
-  clearCart() {
-    this.items = []
-  }
+  
 }
