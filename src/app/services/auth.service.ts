@@ -30,6 +30,7 @@ export class AuthService {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
         if(user) {
+          console.log(user);
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         }
         else {
@@ -40,8 +41,7 @@ export class AuthService {
   }
 
   async signInWithEmailAndPassword(email, password) {
-    const provider = new auth.EmailAuthProvider();
-    const credential = await this.afAuth.auth.signInWithEmailAndPassword(email, password)
+    const credential = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
     return this.updateUserData(credential.user);
   }
 
@@ -49,6 +49,17 @@ export class AuthService {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
     return this.updateUserData(credential.user)
+  }
+  facebookSignIn() {
+    const provider = new auth.FacebookAuthProvider();
+    this.afAuth.auth.signInWithPopup(provider).then((result) => {
+      const token = result.credential;
+      console.log(token)
+      return this.updateUserData(result.user)
+    })
+    
+
+    
   }
   async signOut() {
     await this.afAuth.auth.signOut();

@@ -1,5 +1,5 @@
 <header class="header">
-  <div class="modal-window-background" *ngIf="!authVisible">
+  <div class="modal-window-background" *ngIf="authVisible">
     <div class="modal-window">
       <div class="modal-window-header">
         <h3>Вхід</h3>
@@ -33,9 +33,9 @@
           <p>Увійти як користувач</p>
           <button class="modal-window-body-social-button">
             <fa-icon [icon]="faBriefcase"></fa-icon>
-            <p class="modal-window-body-social-button-title">Facebook</p>
+            <p class="modal-window-body-social-button-title" (click)="auth.facebookSignIn();toggleAuthVisible();">Facebook</p>
           </button>
-          <button class="modal-window-body-social-button" (click)="auth.googleSignin()">
+          <button class="modal-window-body-social-button" (click)="auth.googleSignin(); ">
             <fa-icon [icon]="faBriefcase"></fa-icon>
             <p class="modal-window-body-social-button-title">Google</p>
           </button>
@@ -50,7 +50,7 @@
         <span class="phone">{{phone}}</span>
       </div>
       <div class="header-topline-auth">
-        <a *ngIf="auth.user$ | async as user; else login">Authorized</a>
+        <a *ngIf="auth.user$ | async as user; else login" (click)="auth.signOut()">Вийти</a>
       </div>
     </div>
     <div class="header-bottomline">
