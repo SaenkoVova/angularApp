@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CartService } from '../services/cart.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { CartService, Product } from '../services/cart.service';
+import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -10,19 +12,19 @@ import { CartService } from '../services/cart.service';
 
 export class ProductDetailsComponent implements OnInit {
 
-  public product;
+  public $product: Observable<Product>;
 
-  constructor(private route: ActivatedRoute, private cartService: CartService) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private cartService: CartService) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.product = this.cartService.products[ +params.get('productId')];
-      
-    })
+    // const id = this.route.snapshot.paramMap.get('productId');
+    //  this.cartService.getProduct(id).subscribe(val => this.$product = val)
+    this.$product = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => 
+      this.cartService.getProduct(params.get('productId')))
+    );
   }
-
-  addToCart(product) {
-    this.cartService.addToCart(product)
-  }
-
+  
 }

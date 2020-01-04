@@ -13,10 +13,7 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    this.items = this.cartService.items
+    
   }
-  clearCart() {
-    this.cartService.clearCart()
-    this.items = this.cartService.items
-  }
+  
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import {AngularFirestore } from '@angular/fire/firestore';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
 
 export interface Product {
   id?: string,
@@ -17,10 +18,9 @@ export interface Product {
 })
 export class CartService {
 
-  items: Observable<Product[]>;
+  items: Observable<any>;
 
   constructor(
-    private httpClient: HttpClient,
     private afs: AngularFirestore) { 
       this.items = this.afs.collection(`products`).valueChanges();
     }
@@ -28,5 +28,13 @@ export class CartService {
   getProducts() {
     return this.items;
   }
+  getProduct(id) {
+    // this.items.pipe(filter(value => value.id === id));
+    // return this.items;
+    return this.getProducts().pipe(
+      map((products: Product[]) => products.find(product => product.id === id))
+    )
+  }
+  
   
 }

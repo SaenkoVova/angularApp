@@ -1,12 +1,10 @@
 <h2 class="text-muted">Product details</h2>
-<div *ngIf="product">
+<div *ngIf="$product | async as product">
     <div class="card mt-5">
         <div class="card-body">
             <h5 class="card-title">
                 {{product.title}}
             </h5>
-            <p class="card-text">{{product.description}}</p>
-            <h3>{{product.price}} $</h3>
             <button class="btn btn-info" (click)="addToCart(product)">Add to cart</button>
         </div>
     </div>
