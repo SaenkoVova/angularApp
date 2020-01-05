@@ -1,16 +1,18 @@
 <div class="container">
     <div class="row">
       <div class="col" *ngIf="products?.length > 0; else noItems">
-        <a [routerLink]="['/products', product.id]" routerLinkActive="router-link-active"  *ngFor="let product of products" class="card" style="width: 18rem;">
-          <img [src]="product.imageUrl" class="card-img-top" alt="cardImage">
-          <div class="card-body">
-            <h5 class="card-title">{{product.title}}</h5>
-            <h6>{{product.discountPrice}} ₴</h6>
-            <h3>{{product.price}} ₴</h3>
-            <p *ngIf="product.quantity > 10; else ending">Є в наявності</p>
-            <a href="#" class="btn btn-primary">Додати в корзину</a>
-          </div>
-        </a>
+        <div *ngFor="let product of products">
+          <a routerLink="/products/{{product.id}}" class="card" style="width: 18rem;">
+            <img [src]="product.imageUrl" class="card-img-top" alt="cardImage">
+            <div class="card-body">
+              <h5 class="card-title">{{product.title}}</h5>
+              <h6>{{product.discountPrice}} ₴</h6>
+              <h3>{{product.price}} ₴</h3>
+              <p *ngIf="product.quantity > 10; else ending">Є в наявності</p>
+              <a href="#" class="btn btn-primary">Додати в корзину</a>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
 </div>
