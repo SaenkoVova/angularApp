@@ -90,6 +90,23 @@
     margin: 0 20px;
     cursor: pointer;
 }
+.header-actions-item {
+    position: relative;
+}
+.header-actions-item-badge {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: red;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
 .modal-window-background {
     position: fixed;
     left: 0;

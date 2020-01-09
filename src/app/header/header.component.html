@@ -1,9 +1,10 @@
 <header class="header">
+  <app-cart *ngIf="cartVisible" (toggleCartVisible)="toggleCartVisible()"></app-cart>
   <div class="modal-window-background" *ngIf="authVisible">
     <div class="modal-window">
       <div class="modal-window-header">
         <h3>Вхід</h3>
-        <button class="modal-window-header-button" (click)="toggleAuthVisible()" aria-label="Закрити модальне вікно">
+        <button class="modal-window-header-button" (click)="toggleAuthVisible();" aria-label="Закрити модальне вікно">
           <span class="burger"></span>
         </button>
       </div>
@@ -73,7 +74,10 @@
       </div>
       <ul class="header-actions">
         <li class="header-actions-item">
-          <fa-icon [icon]="faCartArrowDown" class="header-actions-item-icon"></fa-icon>
+          <div class="header-actions-item-badge" *ngIf="cartCouter | async">
+            {{cartCounter}}
+          </div>
+          <fa-icon [icon]="faCartArrowDown" class="header-actions-item-icon" (click)="toggleCartVisible()"></fa-icon>
         </li>
         <li class="header-actions-item">
           <fa-icon [icon]="faHeart" class="header-actions-item-icon"></fa-icon>

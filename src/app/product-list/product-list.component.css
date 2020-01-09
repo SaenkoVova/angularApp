@@ -1,0 +1,9 @@
+.card-discount {
+    text-decoration: line-through;
+}
+.available {
+    color: #00A046;
+}
+.noavailable {
+    color: #ff5c00;
+}

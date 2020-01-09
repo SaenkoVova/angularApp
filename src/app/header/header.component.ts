@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { faPhone, faBox, faCartArrowDown, faHeart, faWindowClose, faBriefcase} from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
 import { FormBuilder } from '@angular/forms';
+import { CartService } from '../services/cart.service';
 
 
 @Component({
@@ -21,10 +22,13 @@ export class HeaderComponent implements OnInit {
   placeholder = 'Я шукаю';
   rememberMe = true;
   authVisible = false;
+  cartVisible = false;
+  cartCouter;
   checkoutForm;
   constructor(
     public auth: AuthService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private cartService: CartService) {
       this.checkoutForm = this.formBuilder.group({
         email: '',
         password: ''
@@ -32,11 +36,18 @@ export class HeaderComponent implements OnInit {
     }
 
   ngOnInit() {
+    setTimeout(function () {
+      this.cartCouter = this.cartService.getCartProducts().length;
+      alert(this.cartService.cartProducts.length)
+    }, 2000)
   }
   toggleAuthVisible() {
     this.authVisible = !this.authVisible;
   }
   signInWithEmailEndPassword(userData) {
     this.auth.signInWithEmailAndPassword(userData.email, userData.password)
+  }
+  toggleCartVisible() {
+    this.cartVisible = !this.cartVisible;
   }
 }

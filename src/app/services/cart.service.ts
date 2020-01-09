@@ -16,6 +16,7 @@ export class Product {
 export class CartService {
 
   items;
+  cartProducts: Product[] = [];
   postDoc: AngularFirestoreDocument
 
   constructor(private afs: AngularFirestore) {}
@@ -26,6 +27,11 @@ export class CartService {
   getProduct(id) {
     return this.afs.doc(`products/${id}`).valueChanges();
   }
-  
+  getCartProducts() {
+    return this.cartProducts;
+  }
+  addToCart(product) {
+    this.cartProducts.push(product);
+  }
   
 }

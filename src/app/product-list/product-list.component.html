@@ -1,17 +1,17 @@
 <div class="container">
-    <div class="row">
-      <div class="col" *ngIf="products?.length > 0; else noItems">
-        <div *ngFor="let product of products">
-          <a routerLink="/products/{{product.id}}" class="card" style="width: 18rem;">
-            <img [src]="product.imageUrl" class="card-img-top" alt="cardImage">
+    <div class="row" *ngIf="products?.length > 0; else noItems">
+      <div class="col" *ngFor="let product of products">
+        <div class="card" style="width: 18rem;">
+          <a routerLink="/products/{{product.id}}" class="text-decoration-none">
+            <img [src]="product.imageUrl" class="card-img-top" alt="cardImage" height="250">
             <div class="card-body">
-              <h5 class="card-title">{{product.title}}</h5>
-              <h6>{{product.discountPrice}} ₴</h6>
-              <h3>{{product.price}} ₴</h3>
-              <p *ngIf="product.quantity > 10; else ending">Є в наявності</p>
-              <a href="#" class="btn btn-primary">Додати в корзину</a>
+              <h5 class="card-title text-dark">{{product.title}}</h5>
+              <h6 class="text-muted card-discount">{{product.discountPrice}} ₴</h6>
+              <h3 class="text-danger">{{product.price}} ₴</h3>
+              <p *ngIf="product.quantity > 10; else ending" class="available">Є в наявності</p>
             </div>
           </a>
+          <a (click)="addToCart(product)" class="btn btn-primary text-light">Додати в корзину</a>
         </div>
       </div>
     </div>
@@ -21,5 +21,5 @@
   <p>No items</p>
 </ng-template>
 <ng-template #ending>
-  <p>Закінчується</p>
+  <p class="noavailable">Закінчується</p>
 </ng-template>
