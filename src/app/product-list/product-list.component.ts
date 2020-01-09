@@ -10,13 +10,19 @@ import { CartService, Product } from '../services/cart.service';
 
 export class ProductListComponent implements OnInit {
 
-  constructor(private cartService: CartService) { }
-
   products: Product[];
 
+  constructor(private cartService: CartService) { }
+
   ngOnInit() {
-    this.cartService.getProducts().subscribe(items => {
-      this.products = items;
+    this.cartService.getProducts().subscribe(actionArray => {
+      this.products = actionArray.map(item => {
+        return {
+          id: item.payload.doc.id,
+          ...(item.payload.doc.data() as Object)
+        } as Product;
+       
+      });
     });
   }
  

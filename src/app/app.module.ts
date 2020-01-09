@@ -14,8 +14,9 @@ import { CartComponent } from './cart/cart.component';
 import { ShippingComponent } from './shipping/shipping.component';
 import { ToOrderComponent } from './to-order/to-order.component'
 
-import { firebaseConfig } from '../environments/environment'
+import { environment } from '../environments/environment'
 import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore'
 import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 
@@ -37,15 +38,17 @@ import { AngularFirestore } from '@angular/fire/firestore';
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
     RouterModule.forRoot([
-      {path: '', component: ProductListComponent},
-      {path: 'products/:productId', component: ProductDetailsComponent},
+      {
+        path: '', component: ProductListComponent},
+      {path: 'products/:id', component: ProductDetailsComponent},
       {path: 'cart', component: CartComponent},
       {path: 'shipping', component: ShippingComponent},
       {path: 'order', component: ToOrderComponent}
-    ]),
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule
+    ])
   ],
   providers: [
     AngularFireModule,
