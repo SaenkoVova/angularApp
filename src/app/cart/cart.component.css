@@ -8,17 +8,20 @@
     z-index: 100;
     display: flex;
     align-items: center;
+    padding: 100px 0;
 }
 .modal-window {
     background: #fff;
-    width: 840px;
-    max-width: 840px;
+    width: 950px;
+    max-width: 950px;
+    height: 100%;
     margin: 0 auto;
     border-radius: 8px;
     box-shadow: 0 8px 40px rgba(0,0,0,.32);
     padding: 15px 20px 15px 20px;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 .cart-empty {
     display: flex;
@@ -48,7 +51,7 @@
     border: none;
     background: #fff;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .burger:hover.burger::after, .burger:hover::before {
@@ -75,4 +78,33 @@
 .modal-window-body {
     display: flex;
     color: #797878;
+}
+.card-body-right {
+    padding: 0 10px;
+    flex-grow: 1;
+}
+.card-body-right-control-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.price-badge {
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: #fff3b5;
+}
+.quantity-badge-button {
+    border: none;
+    height: 35px;
+    width: 35px;
+    color: #3e77aa;
+    border-radius: 3px;
+}
+.quantity-badge-input {
+    height: 35px;
+    margin: 0 10px;
+    width: 50px;
+    text-align: center;
+    border: 1px solid #d2d2d2;
+    border-radius: 4px;
 }

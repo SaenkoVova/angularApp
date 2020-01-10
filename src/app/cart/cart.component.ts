@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CartService, Product } from '../services/cart.service';
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faMinus, faPlus} from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-cart',
@@ -10,9 +10,16 @@ import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 
 export class CartComponent implements OnInit {
 
-  @Output() toggleCartVisible = new EventEmitter()
+  @Output() toggleCartVisible = new EventEmitter();
+  faMinus = faMinus;
+  faPlus = faPlus;
+  quantity = 1;
+  disabled = true;
+  itemSum = {
+    sum: 0
+  }
 
-  items: Product[] = []
+  items = []
 
   faCartPlus = faCartPlus;
 
@@ -20,6 +27,17 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.items = this.cartService.getCartProducts();
+    this.initializeSum();
+  }
+
+  initializeSum() {
+    for (let item of this.items) {
+      item = Object.assign(item, this.itemSum);
+      item.sum = item.price * this.quantity;
+    }
+  }
+  increaseQuantity() {
+    
   }
   
 }

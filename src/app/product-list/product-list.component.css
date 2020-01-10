@@ -7,3 +7,12 @@
 .noavailable {
     color: #ff5c00;
 }
+.title {
+    font-size: 15px;
+}
+.card-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

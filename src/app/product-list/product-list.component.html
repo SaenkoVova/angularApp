@@ -1,17 +1,17 @@
 <div class="container">
     <div class="row" *ngIf="products?.length > 0; else noItems">
-      <div class="col" *ngFor="let product of products">
-        <div class="card" style="width: 18rem;">
+      <div class="col d-flex justify-content-center" *ngFor="let product of products">
+        <div class="card d-flex position-relative" style="width: 18rem; height: 500px;">
           <a routerLink="/products/{{product.id}}" class="text-decoration-none">
             <img [src]="product.imageUrl" class="card-img-top" alt="cardImage" height="250">
             <div class="card-body">
-              <h5 class="card-title text-dark">{{product.title}}</h5>
+              <h5 class="card-title text-dark title">{{product.title}}</h5>
               <h6 class="text-muted card-discount">{{product.discountPrice}} ₴</h6>
               <h3 class="text-danger">{{product.price}} ₴</h3>
               <p *ngIf="product.quantity > 10; else ending" class="available">Є в наявності</p>
             </div>
           </a>
-          <a (click)="addToCart(product)" class="btn btn-primary text-light" *ngIf="!cartService.hasId(product.id); else added">Додати в корзину</a>
+          <a (click)="addToCart(product)" class="btn btn-primary text-light card-button" *ngIf="!cartService.hasId(product.id); else added">Додати в корзину</a>
         </div>
       </div>
     </div>
@@ -24,5 +24,5 @@
   <p class="noavailable">Закінчується</p>
 </ng-template>
 <ng-template #added>
-  <a (click)="addToInventory(product)" class="btn btn-success text-light">Додано</a>
+  <a (click)="addToInventory(product)" class="btn btn-success text-light card-button">Додано</a>
 </ng-template>
