@@ -107,6 +107,9 @@
     align-items: center;
     border-radius: 50%;
 }
+.header-actions-item-badge-text {
+    margin: 0;
+}
 .modal-window-background {
     position: fixed;
     left: 0;

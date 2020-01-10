@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreDocument, SnapshotOptions } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
+
 
 export class Product {
   id: string
@@ -15,9 +17,12 @@ export class Product {
 })
 export class CartService {
 
-  items;
+  items: Product[] = [];
   cartProducts: Product[] = [];
-  postDoc: AngularFirestoreDocument
+  postDoc: AngularFirestoreDocument;
+  prod: Product;
+  private inventorySubject$ = new BehaviorSubject<Product>(this.prod);
+  inventoryChanged$ = this.inventorySubject$.asObservable();
 
   constructor(private afs: AngularFirestore) {}
 
@@ -33,5 +38,8 @@ export class CartService {
   addToCart(product) {
     this.cartProducts.push(product);
   }
-  
+  addToInventory(product: Product) {
+    this.prod = product;
+    this.inventorySubject$.next(product)
+  }
 }

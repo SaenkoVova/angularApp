@@ -36,10 +36,11 @@ export class HeaderComponent implements OnInit {
     }
 
   ngOnInit() {
-    setTimeout(function () {
-      this.cartCouter = this.cartService.getCartProducts().length;
-      alert(this.cartService.cartProducts.length)
-    }, 2000)
+    
+     this.cartService.inventoryChanged$.subscribe(data => {
+       this.cartCouter = this.cartService.cartProducts.length
+     })
+    
   }
   toggleAuthVisible() {
     this.authVisible = !this.authVisible;
