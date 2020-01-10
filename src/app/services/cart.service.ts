@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore, AngularFirestoreDocument, SnapshotOptions } from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 
 
@@ -21,6 +21,7 @@ export class CartService {
   cartProducts: Product[] = [];
   postDoc: AngularFirestoreDocument;
   prod: Product;
+  setAddedId = new Set();
   private inventorySubject$ = new BehaviorSubject<Product>(this.prod);
   inventoryChanged$ = this.inventorySubject$.asObservable();
 
@@ -40,6 +41,12 @@ export class CartService {
   }
   addToInventory(product: Product) {
     this.prod = product;
-    this.inventorySubject$.next(product)
+    this.inventorySubject$.next(product);
+  }
+  hasId(id) {
+    return this.setAddedId.has(id);
+  }
+  addId(id) {
+    this.setAddedId.add(id);
   }
 }

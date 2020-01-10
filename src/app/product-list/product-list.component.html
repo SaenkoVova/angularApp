@@ -11,7 +11,7 @@
               <p *ngIf="product.quantity > 10; else ending" class="available">Є в наявності</p>
             </div>
           </a>
-          <a (click)="addToCart(product)" class="btn btn-primary text-light">Додати в корзину</a>
+          <a (click)="addToCart(product)" class="btn btn-primary text-light" *ngIf="!cartService.hasId(product.id); else added">Додати в корзину</a>
         </div>
       </div>
     </div>
@@ -22,4 +22,7 @@
 </ng-template>
 <ng-template #ending>
   <p class="noavailable">Закінчується</p>
+</ng-template>
+<ng-template #added>
+  <a (click)="addToInventory(product)" class="btn btn-success text-light">Додано</a>
 </ng-template>

@@ -36,9 +36,11 @@ export class HeaderComponent implements OnInit {
     }
 
   ngOnInit() {
-    
      this.cartService.inventoryChanged$.subscribe(data => {
-       this.cartCouter = this.cartService.cartProducts.length
+       this.cartCouter = this.cartService.cartProducts.length;
+       if(this.cartCouter > 0) {
+         this.cartVisible = !this.cartVisible;
+       }
      })
     
   }

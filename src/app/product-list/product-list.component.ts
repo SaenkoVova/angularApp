@@ -26,8 +26,13 @@ export class ProductListComponent implements OnInit {
     });
   }
   addToCart(product) {
-    this.cartService.addToCart(product)
+    if(!this.cartService.hasId(product.id)) {
+      this.cartService.addToCart(product);
+      this.cartService.addToInventory(product);
+    }
+    this.cartService.addId(product.id);
+  }
+  addToInventory(product) {
     this.cartService.addToInventory(product)
   }
-  
 }
