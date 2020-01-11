@@ -27,6 +27,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.items = this.cartService.getCartProducts();
+    this.items = this.cartService.getProductFromLocalStorage();
     this.initializeSum();
   }
 

@@ -38,6 +38,23 @@ export class CartService {
   }
   addToCart(product) {
     this.cartProducts.push(product);
+    this.addToLocalStorage(product);
+  }
+  addToLocalStorage(product) {
+    let identicElementsCounter = 0;
+    const all = this.getProductFromLocalStorage();
+    for (const item of all) {
+      if(item.id === product.id) {
+        identicElementsCounter++;
+      }
+    }
+    if(!identicElementsCounter) {
+      all.push(product);
+      localStorage.setItem('products', JSON.stringify(all));
+    }
+  }
+  getProductFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('products') || '[]')
   }
   addToInventory(product: Product) {
     this.prod = product;

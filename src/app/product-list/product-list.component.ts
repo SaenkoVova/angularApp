@@ -15,6 +15,11 @@ export class ProductListComponent implements OnInit {
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
+    this.loadProducts();
+    this.addIdAfterReloading();
+  }
+
+  loadProducts() {
     this.cartService.getProducts().subscribe(actionArray => {
       this.products = actionArray.map(item => {
         return {
@@ -34,5 +39,13 @@ export class ProductListComponent implements OnInit {
   }
   addToInventory(product) {
     this.cartService.addToInventory(product)
+  }
+  addIdAfterReloading() {
+    if(!this.cartService.setAddedId.size) {
+      const all = this.cartService.getProductFromLocalStorage();
+      for (const item of all) {
+        this.cartService.addId(item.id);
+      }
+    }
   }
 }

@@ -36,13 +36,21 @@ export class HeaderComponent implements OnInit {
     }
 
   ngOnInit() {
-     this.cartService.inventoryChanged$.subscribe(data => {
-       this.cartCouter = this.cartService.cartProducts.length;
-       if(this.cartCouter > 0) {
-         this.cartVisible = !this.cartVisible;
-       }
-     })
+    this.observeForAddToCart();
     
+  }
+  observeForAddToCart() {
+    this.cartService.inventoryChanged$.subscribe(data => {
+      if(this.cartService.cartProducts.length > 0) {
+       this.cartCouter = this.cartService.cartProducts.length;
+      }
+      else if(this.cartService.cartProducts.length == 0) {
+        this.cartCouter = this.cartService.getProductFromLocalStorage().length;
+      }
+      if(data !== undefined) {
+       this.toggleCartVisible();
+      }
+    })
   }
   toggleAuthVisible() {
     this.authVisible = !this.authVisible;
