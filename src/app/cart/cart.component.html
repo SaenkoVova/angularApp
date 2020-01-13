@@ -16,14 +16,14 @@
                         </a>
                         <div class="card-body-right-control-panel mt-5">
                             <div class="price-badge">
-                                <h5 class="m-0">{{item.price}} грн</h5>
+                                <h5 class="m-0" *ngIf="!item.discountPrice; else discountPrice">{{item.price}} грн</h5>
                             </div>
                             <div class="quantity-badge">
-                                <button class="quantity-badge-button" [disabled]="disabled">
+                                <button class="quantity-badge-button" [disabled]="quantity == 1" (click)="reduceQuantity(item)">
                                     <fa-icon [icon]="faMinus"></fa-icon>
                                 </button>
                                 <input type="text" class="quantity-badge-input" [value]="quantity">
-                                <button class="quantity-badge-button" (click)="increaseQuantity()">
+                                <button class="quantity-badge-button" (click)="increaseQuantity(item)">
                                     <fa-icon [icon]="faPlus"></fa-icon>
                                 </button>
                             </div>
@@ -47,3 +47,6 @@
         <p class="text-center text-muted pl-3 cart-empty-text">Кошик порожній</p>
    </span>
 </ng-template>
+<ng-template #discountPrice>
+    <!-- <h5 class="m-0">{{item.discountPrice}} грн</h5> -->
+</ng-template >

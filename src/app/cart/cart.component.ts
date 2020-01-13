@@ -13,7 +13,7 @@ export class CartComponent implements OnInit {
   @Output() toggleCartVisible = new EventEmitter();
   faMinus = faMinus;
   faPlus = faPlus;
-  quantity = 1;
+  quantity;
   disabled = true;
   itemSum = {
     sum: 0
@@ -26,9 +26,11 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
+    this.quantity = this.cartService.getQuantity();
     this.items = this.cartService.getCartProducts();
     this.items = this.cartService.getProductFromLocalStorage();
     this.initializeSum();
+    
   }
 
   initializeSum() {
@@ -37,8 +39,12 @@ export class CartComponent implements OnInit {
       item.sum = item.price * this.quantity;
     }
   }
-  increaseQuantity() {
-    
+  increaseQuantity(item) {
+    this.cartService.increaseQuantity(item);
+    this.quantity = this.cartService.getQuantity();
   }
-  
+  reduceQuantity(item) {
+    this.cartService.reduceQuantity(item);
+    this.quantity = this.cartService.getQuantity();
+  }
 }
