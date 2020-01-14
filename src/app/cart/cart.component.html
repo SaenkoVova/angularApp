@@ -19,10 +19,10 @@
                                 <h5 class="m-0" *ngIf="!item.discountPrice; else discountPrice">{{item.price}} грн</h5>
                             </div>
                             <div class="quantity-badge">
-                                <button class="quantity-badge-button" [disabled]="quantity == 1" (click)="reduceQuantity(item)">
+                                <button class="quantity-badge-button" [disabled]="item.orderQuantity == 1" (click)="reduceQuantity(item)">
                                     <fa-icon [icon]="faMinus"></fa-icon>
                                 </button>
-                                <input type="text" class="quantity-badge-input" [value]="quantity">
+                                <input type="text" class="quantity-badge-input" [value]="item.orderQuantity">
                                 <button class="quantity-badge-button" (click)="increaseQuantity(item)">
                                     <fa-icon [icon]="faPlus"></fa-icon>
                                 </button>

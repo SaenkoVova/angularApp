@@ -10,6 +10,7 @@ export class Product {
   discountPrice: number
   imageUrl: string
   quantity: number
+  orderQuantity: number
 }
 
 
@@ -25,7 +26,6 @@ export class CartService {
   setAddedId = new Set();
   private inventorySubject$ = new BehaviorSubject<Product>(this.prod);
   inventoryChanged$ = this.inventorySubject$.asObservable();
-  quantity = 1;
 
   constructor(private afs: AngularFirestore) {}
 
@@ -73,14 +73,14 @@ export class CartService {
     if(!this.cartProducts.length) {
       const clickedElem = this.getProductFromLocalStorage().find(item => item.id === product.id)
       if(clickedElem.quantity > 0) {
-        this.quantity++;
+        clickedElem.orderQuantity++;
         clickedElem.quantity--;
       }
     }
     else {
       const clickedElem = this.getCartProducts().find(item => item.id === product.id)
       if(clickedElem.quantity > 0) {
-        this.quantity++;
+        clickedElem.orderQuantity++;
         clickedElem.quantity--;
       }
     }
@@ -88,16 +88,13 @@ export class CartService {
   reduceQuantity(product) {
     if(!this.cartProducts.length) {
       const clickedElem = this.getProductFromLocalStorage().find(item => item.id === product.id)
-      this.quantity--
+      clickedElem.orderQuantity--;
       clickedElem.quantity++;
     }
     else {
       const clickedElem = this.getCartProducts().find(item => item.id === product.id)
-        this.quantity--;
+        clickedElem.orderQuantity--;
         clickedElem.quantity++;
     }
-  }
-  getQuantity() {
-    return this.quantity;
   }
 }
