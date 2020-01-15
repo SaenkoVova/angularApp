@@ -6,8 +6,9 @@
             <img [src]="product.imageUrl" class="card-img-top" alt="cardImage" height="250">
             <div class="card-body">
               <h5 class="card-title text-dark title">{{product.title}}</h5>
-              <h6 class="text-muted card-discount">{{product.discountPrice}} ₴</h6>
-              <h3 class="text-danger">{{product.price}} ₴</h3>
+              <h6 class="text-muted card-discount" *ngIf="product.discountPrice">{{product.price}} ₴</h6>
+              <h3 class="text-danger" *ngIf="product.discountPrice">{{product.discountPrice}} ₴</h3>
+              <h3 class="text-dark" *ngIf="!product.discountPrice">{{product.price}} ₴</h3>
               <p *ngIf="product.quantity > 10; else ending" class="available">Є в наявності</p>
             </div>
           </a>

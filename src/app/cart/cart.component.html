@@ -7,7 +7,10 @@
         <div *ngIf="items.length > 0; else noProducts">
             <div *ngFor="let item of items" class="card mt-5">
                 <div class="card-body d-flex">
-                    <div class="card-body-left">
+                    <div class="d-flex">
+                        <button (click)="removeFromCart(item)" class="align-self-start mini-button-close-wraper">
+                            <span class="mini-button-close"></span>
+                        </button>
                         <img [src]="item.imageUrl" alt="itemtitle" width="150" height="150">
                     </div>
                     <div class="card-body-right">
@@ -16,7 +19,8 @@
                         </a>
                         <div class="card-body-right-control-panel mt-5">
                             <div class="price-badge">
-                                <h5 class="m-0" *ngIf="!item.discountPrice; else discountPrice">{{item.price}} грн</h5>
+                                <h5 class="m-0" *ngIf="!item.discountPrice">{{item.price}} грн</h5>
+                                <h5 class="m-0" *ngIf="item.discountPrice">{{item.discountPrice}} грн</h5>
                             </div>
                             <div class="quantity-badge">
                                 <button class="quantity-badge-button" [disabled]="item.orderQuantity == 1" (click)="reduceQuantity(item)">
@@ -47,6 +51,3 @@
         <p class="text-center text-muted pl-3 cart-empty-text">Кошик порожній</p>
    </span>
 </ng-template>
-<ng-template #discountPrice>
-    <!-- <h5 class="m-0">{{item.discountPrice}} грн</h5> -->
-</ng-template >

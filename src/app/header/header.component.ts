@@ -41,12 +41,7 @@ export class HeaderComponent implements OnInit {
   }
   observeForAddToCart() {
     this.cartService.inventoryChanged$.subscribe(data => {
-      if(this.cartService.cartProducts.length > 0) {
-       this.cartCouter = this.cartService.cartProducts.length;
-      }
-      else if(this.cartService.cartProducts.length == 0) {
-        this.cartCouter = this.cartService.getProductFromLocalStorage().length;
-      }
+      this.cartCouter = this.cartService.getProductFromLocalStorage().length;
       if(data !== undefined) {
        this.toggleCartVisible();
       }

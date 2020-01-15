@@ -1,17 +1,7 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
+import { Product } from '../models/Product';
 
-
-export class Product {
-  id: string
-  title: string
-  price: number
-  discountPrice: number
-  imageUrl: string
-  quantity: number
-  orderQuantity: number
-}
 
 
 @Injectable({
@@ -21,26 +11,20 @@ export class CartService {
 
   items: Product[] = [];
   cartProducts: Product[] = [];
-  postDoc: AngularFirestoreDocument;
   prod: Product;
   setAddedId = new Set();
   private inventorySubject$ = new BehaviorSubject<Product>(this.prod);
   inventoryChanged$ = this.inventorySubject$.asObservable();
 
-  constructor(private afs: AngularFirestore) {}
+  constructor() {}
 
-  getProducts() {
-    return this.afs.collection(`products`).snapshotChanges();
-  }
-  getProduct(id) {
-    return this.afs.doc(`products/${id}`).valueChanges();
-  }
+  
   getCartProducts() {
     return this.cartProducts;
   }
   addToCart(product) {
-    this.cartProducts.push(product);
     this.addToLocalStorage(product);
+    this.cartProducts = this.getProductFromLocalStorage();
   }
   addToLocalStorage(product) {
     let identicElementsCounter = 0;
@@ -51,9 +35,21 @@ export class CartService {
       }
     }
     if(!identicElementsCounter) {
+      product.sum = this.calcSum(product);
       all.push(product);
       localStorage.setItem('products', JSON.stringify(all));
     }
+  }
+  refreshLocalStorage(product) {
+    const all = this.getProductFromLocalStorage();
+    for(let item of all) {
+      if(item.id === product.id) {
+        item.orderQuantity = product.orderQuantity;
+        item.quantity = product.quantity;
+        item.sum = this.calcSum(item);
+      }
+    }
+    localStorage.setItem('products', JSON.stringify(all));
   }
   getProductFromLocalStorage() {
     return JSON.parse(localStorage.getItem('products') || '[]')
@@ -68,33 +64,30 @@ export class CartService {
   addId(id) {
     this.setAddedId.add(id);
   }
-
   increaseQuantity(product) {
-    if(!this.cartProducts.length) {
-      const clickedElem = this.getProductFromLocalStorage().find(item => item.id === product.id)
-      if(clickedElem.quantity > 0) {
-        clickedElem.orderQuantity++;
-        clickedElem.quantity--;
-      }
-    }
-    else {
-      const clickedElem = this.getCartProducts().find(item => item.id === product.id)
-      if(clickedElem.quantity > 0) {
-        clickedElem.orderQuantity++;
-        clickedElem.quantity--;
+    for (const item of this.getProductFromLocalStorage()) {
+      if(item.id === product.id) {
+        if(item.quantity > 0) {
+          item.orderQuantity++;
+          item.quantity--;
+          this.refreshLocalStorage(item);
+        }
       }
     }
   }
   reduceQuantity(product) {
-    if(!this.cartProducts.length) {
-      const clickedElem = this.getProductFromLocalStorage().find(item => item.id === product.id)
-      clickedElem.orderQuantity--;
-      clickedElem.quantity++;
+    for (const item of this.getProductFromLocalStorage()) {
+      if(item.id === product.id) {
+        item.orderQuantity--;
+        item.quantity++;
+        this.refreshLocalStorage(item);
+      }
     }
-    else {
-      const clickedElem = this.getCartProducts().find(item => item.id === product.id)
-        clickedElem.orderQuantity--;
-        clickedElem.quantity++;
-    }
+  }
+  calcSum(item) {
+    return item.discountPrice ? item.orderQuantity * item.discountPrice : item.orderQuantity * item.price;
+  }
+  removeFromCart(product) {
+    localStorage.setItem('products', JSON.stringify(this.getProductFromLocalStorage().filter(i => i.id !== product.id)));
   }
 }
