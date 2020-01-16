@@ -1,39 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../services/cart.service';
+import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../services/products.service';
-import { Product } from '../models/Product';
-
+import { faAward, faClock, faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { CartService } from '../services/cart.service';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-all-info-product',
+  templateUrl: './all-info-product.component.html',
+  styleUrls: ['./all-info-product.component.css']
 })
+export class AllInfoProductComponent implements OnInit {
 
-export class ProductListComponent implements OnInit {
-
-  products: Product[];
+  faCloud = faAward;
+  faClock = faClock;
+  faCartPlus = faCartPlus;
+  faHeart = faHeart;
+  product = {
+    id: ''
+  };
 
   constructor(
-    private productsService: ProductsService,
-    private cartService: CartService) { }
+   private route: ActivatedRoute,
+   private productsService: ProductsService,
+   private cartService: CartService
+  ) { }
 
   ngOnInit() {
-    this.loadProducts();
+    const id = this.route.snapshot.paramMap.get('id');
+    this.product.id = id;
+    this.productsService.getProduct(id).subscribe(data => {
+      this.product = Object.assign(this.product, data);
+    })
     this.addIdAfterReloading();
     this.observeForRemoveFromCart();
-  }
-
-  loadProducts() {
-    this.productsService.getProducts().subscribe(actionArray => {
-      this.products = actionArray.map(item => {
-        return {
-          id: item.payload.doc.id,
-          ...(item.payload.doc.data() as Object)
-        } as Product;
-       
-      });
-    });
   }
   addToCart(product) {
     if(!this.cartService.hasId(product.id)) {

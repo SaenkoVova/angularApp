@@ -23,6 +23,8 @@
 .header-bottomline {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 .header-botomline-logo {
     display: block;

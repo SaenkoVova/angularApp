@@ -18,7 +18,6 @@ export class CartService {
 
   constructor() {}
 
-  
   getCartProducts() {
     return this.cartProducts;
   }
@@ -63,6 +62,9 @@ export class CartService {
   }
   addId(id) {
     this.setAddedId.add(id);
+  }
+  removeId(id) {
+    this.setAddedId.delete(id);
   }
   increaseQuantity(product) {
     for (const item of this.getProductFromLocalStorage()) {

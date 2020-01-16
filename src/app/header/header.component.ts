@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faPhone, faBox, faCartArrowDown, faHeart, faWindowClose, faBriefcase} from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faCartArrowDown, faHeart, faWindowClose, faBriefcase} from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
 import { FormBuilder } from '@angular/forms';
 import { CartService } from '../services/cart.service';
@@ -12,7 +12,6 @@ import { CartService } from '../services/cart.service';
 })
 export class HeaderComponent implements OnInit {
   faPhone = faPhone;
-  faBox = faBox;
   faCartArrowDown = faCartArrowDown;
   faHeart = faHeart;
   faWindowClose = faWindowClose;

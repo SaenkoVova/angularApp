@@ -10,7 +10,6 @@ import { HeaderComponent } from './header/header.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CartComponent } from './cart/cart.component';
-import { ShippingComponent } from './shipping/shipping.component';
 import { ToOrderComponent } from './to-order/to-order.component'
 
 import { environment } from '../environments/environment'
@@ -18,6 +17,11 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore'
 import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AllInfoProductComponent } from './all-info-product/all-info-product.component';
+import { AppRoutingNodule } from './app-routing.module';
+import { CharacteristicsInfoProductComponent } from './characteristics-info-product/characteristics-info-product.component';
+import { PhotoInfoProductComponent } from './photo-info-product/photo-info-product.component';
+import { CommentsInfoProductComponent } from './comments-info-product/comments-info-product.component';
 
 
 @NgModule({
@@ -27,8 +31,11 @@ import { AngularFirestore } from '@angular/fire/firestore';
     ProductListComponent,
     ProductDetailsComponent,
     CartComponent,
-    ShippingComponent,
-    ToOrderComponent
+    ToOrderComponent,
+    AllInfoProductComponent,
+    CharacteristicsInfoProductComponent,
+    PhotoInfoProductComponent,
+    CommentsInfoProductComponent
   ],
   imports: [
     BrowserModule,
@@ -39,14 +46,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    RouterModule.forRoot([
-      {
-        path: '', component: ProductListComponent},
-      {path: 'products/:id', component: ProductDetailsComponent},
-      {path: 'cart', component: CartComponent},
-      {path: 'shipping', component: ShippingComponent},
-      {path: 'order', component: ToOrderComponent}
-    ])
+    RouterModule,
+    AppRoutingNodule
   ],
   providers: [
     AngularFireModule,

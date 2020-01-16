@@ -1,12 +1,13 @@
-<h2 class="text-muted">Product details</h2>
 <div *ngIf="product">
-    <div class="card mt-5">
-        <div class="card-body">
-            <h5 class="card-title">
-                {{product.title}}
-            </h5>
-            <button class="btn btn-info" (click)="addToCart(product)">Add to cart</button>
-        </div>
+    <div class="container-fluid">
+        <h1>{{product.title}}</h1>
+        <ul class="actions">
+            <li *ngFor="let item of navigateItems" class="actions-item">
+                <a routerLink ="/products/{{product.id}}/{{item.path}}" routerLinkActive="router-link-active"
+                    class="actions-item-link" [class.active]="item.active" (click)="toggleTabActive(item.id)">{{item.title}}</a>
+            </li>
+        </ul>
+        <router-outlet></router-outlet>
     </div>
 </div>
 
