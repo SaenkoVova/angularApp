@@ -1,1 +1,11 @@
-<p>characteristics-info-product works!</p>
+<div class="container-fluid" *ngIf="product">
+    <p>Характеристики {{product.title}}</p>
+    <table class="table table-striped">
+        <tbody>
+            <tr *ngFor="let item of product.characteristics">
+            <td>{{item.characteristic}}</td>
+            <td>{{item.value}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

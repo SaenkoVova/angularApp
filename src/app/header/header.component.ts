@@ -36,10 +36,18 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.observeForAddToCart();
-    
+    this.observeForRemoveFromCart();
   }
   observeForAddToCart() {
-    this.cartService.inventoryChanged$.subscribe(data => {
+    this.cartService.addToCartChanged$.subscribe(data => {
+      this.cartCouter = this.cartService.getProductFromLocalStorage().length;
+      if(data !== undefined) {
+       this.toggleCartVisible();
+      }
+    })
+  }
+  observeForRemoveFromCart() {
+    this.cartService.removeFromCartChanged$.subscribe(data => {
       this.cartCouter = this.cartService.getProductFromLocalStorage().length;
       if(data !== undefined) {
        this.toggleCartVisible();

@@ -21,7 +21,6 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.loadProducts();
     this.addIdAfterReloading();
-    this.observeForRemoveFromCart();
   }
 
   loadProducts() {
@@ -38,12 +37,12 @@ export class ProductListComponent implements OnInit {
   addToCart(product) {
     if(!this.cartService.hasId(product.id)) {
       this.cartService.addToCart(product);
-      this.cartService.addToInventory(product);
+      this.cartService.addToCartEvent(product);
     }
     this.cartService.addId(product.id);
   }
-  addToInventory(product) {
-    this.cartService.addToInventory(product)
+  addToCartInit(product) {
+    this.cartService.addToCartEvent(product)
   }
   addIdAfterReloading() {
     if(!this.cartService.setAddedId.size) {
@@ -52,12 +51,5 @@ export class ProductListComponent implements OnInit {
         this.cartService.addId(item.id);
       }
     }
-  }
-  observeForRemoveFromCart() {
-    this.cartService.inventoryChanged$.subscribe(data => {
-      if(data !== undefined) {
-        this.cartService.removeId(data.id);
-      }
-    })
   }
 }

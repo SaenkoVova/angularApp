@@ -18,7 +18,7 @@ export class ProductDetailsComponent implements OnInit {
       id: 1,
       title: 'Усе про товар',
       path: '/',
-      active: true
+      active: false
     },
     {
       id: 2,

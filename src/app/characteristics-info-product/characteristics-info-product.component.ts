@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProductsService } from '../services/products.service';
 
 @Component({
   selector: 'app-characteristics-info-product',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CharacteristicsInfoProductComponent implements OnInit {
 
-  constructor() { }
+  product
+  constructor(
+    private route: ActivatedRoute,
+    private productsService: ProductsService
+  ) { 
+    
+  }
 
   ngOnInit() {
+    this.route.parent.params.subscribe(data => {
+      this.productsService.getProduct(data.id).subscribe(product => {
+        this.product = product;
+        console.log(this.product)
+      })
+    })
   }
 
 }

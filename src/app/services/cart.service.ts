@@ -13,8 +13,10 @@ export class CartService {
   cartProducts: Product[] = [];
   prod: Product;
   setAddedId = new Set();
-  private inventorySubject$ = new BehaviorSubject<Product>(this.prod);
-  inventoryChanged$ = this.inventorySubject$.asObservable();
+  private addToCartSubject$ = new BehaviorSubject<Product>(this.prod);
+  private removeFromCartSubject$ = new BehaviorSubject<Product>(this.prod);
+  addToCartChanged$ = this.addToCartSubject$.asObservable();
+  removeFromCartChanged$ = this.removeFromCartSubject$.asObservable();
 
   constructor() {}
 
@@ -53,9 +55,13 @@ export class CartService {
   getProductFromLocalStorage() {
     return JSON.parse(localStorage.getItem('products') || '[]')
   }
-  addToInventory(product: Product) {
+  addToCartEvent(product: Product) {
     this.prod = product;
-    this.inventorySubject$.next(product);
+    this.addToCartSubject$.next(product);
+  }
+  removeFromCartEvent(product: Product) {
+    this.prod = product;
+    this.removeFromCartSubject$.next(product)
   }
   hasId(id) {
     return this.setAddedId.has(id);

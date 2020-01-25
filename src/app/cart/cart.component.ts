@@ -34,7 +34,8 @@ export class CartComponent implements OnInit {
   removeFromCart(product) {
     this.cartService.removeFromCart(product);
     this.items = this.cartService.getProductFromLocalStorage();
-    this.cartService.addToInventory(product);
+    this.cartService.removeFromCartEvent(product);
+    this.cartService.removeId(product.id);
     this.toggleCartVisible.emit();
   }
 }
