@@ -17,7 +17,7 @@ export class ProductDetailsComponent implements OnInit {
     {
       id: 1,
       title: 'Усе про товар',
-      path: '/',
+      path: '',
       active: false
     },
     {
@@ -45,15 +45,29 @@ export class ProductDetailsComponent implements OnInit {
     private productsService: ProductsService) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.product.id = id;
-    this.productsService.getProduct(id).subscribe(data => {
-      this.product = Object.assign(this.product, data);
+    this.getProduct();
+    this.findActiveTabAfterReloading();
+  }
+  findActiveTabAfterReloading() {
+    this.route.url.subscribe(() => {
+      const childRoute = this.route.snapshot.firstChild.routeConfig.path;
+      for (const item of this.navigateItems) {
+        if(childRoute === item.path) {
+          item.active = true;
+        }
+      }
     })
   }
   toggleTabActive(id) {
     for (const navigateItem of this.navigateItems) {
       navigateItem.id == id ? navigateItem.active = true : navigateItem.active = false;
     }
+  }
+  getProduct() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.product.id = id;
+    this.productsService.getProduct(id).subscribe(data => {
+      this.product = Object.assign(this.product, data);
+    })
   }
 }

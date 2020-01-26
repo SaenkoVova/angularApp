@@ -12,7 +12,7 @@ import { Product } from '../models/Product';
 
 export class ProductListComponent implements OnInit {
 
-  products: Product[];
+  products;
 
   constructor(
     private productsService: ProductsService,
@@ -22,17 +22,11 @@ export class ProductListComponent implements OnInit {
     this.loadProducts();
     this.addIdAfterReloading();
   }
-
   loadProducts() {
-    this.productsService.getProducts().subscribe(actionArray => {
-      this.products = actionArray.map(item => {
-        return {
-          id: item.payload.doc.id,
-          ...(item.payload.doc.data() as Object)
-        } as Product;
-       
-      });
-    });
+    this.productsService.loadProducts()
+      .then(products => {
+        this.products = products;
+      })
   }
   addToCart(product) {
     if(!this.cartService.hasId(product.id)) {
