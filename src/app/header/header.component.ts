@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { faPhone, faCartArrowDown, faHeart, faWindowClose, faBriefcase} from '@fortawesome/free-solid-svg-icons';
+import { faBriefcase} from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
-import { FormBuilder } from '@angular/forms';
+import {FormBuilder, FormControl} from '@angular/forms';
 import { CartService } from '../services/cart.service';
 
 
@@ -11,19 +11,15 @@ import { CartService } from '../services/cart.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  faPhone = faPhone;
-  faCartArrowDown = faCartArrowDown;
-  faHeart = faHeart;
-  faWindowClose = faWindowClose;
+
   faBriefcase = faBriefcase;
-  phone = '0674470622';
-  panelLable = 'Вітаємо, увійдіть в особистий кабінет';
-  placeholder = 'Я шукаю';
+
   rememberMe = true;
   authVisible = false;
   cartVisible = false;
   cartCouter;
   checkoutForm;
+  search = new FormControl('');
   constructor(
     public auth: AuthService,
     private formBuilder: FormBuilder,
@@ -31,7 +27,7 @@ export class HeaderComponent implements OnInit {
       this.checkoutForm = this.formBuilder.group({
         email: '',
         password: ''
-      })
+      });
     }
 
   ngOnInit() {
@@ -41,24 +37,24 @@ export class HeaderComponent implements OnInit {
   observeForAddToCart() {
     this.cartService.addToCartChanged$.subscribe(data => {
       this.cartCouter = this.cartService.getProductFromLocalStorage().length;
-      if(data !== undefined) {
+      if (data !== undefined) {
        this.toggleCartVisible();
       }
-    })
+    });
   }
   observeForRemoveFromCart() {
     this.cartService.removeFromCartChanged$.subscribe(data => {
       this.cartCouter = this.cartService.getProductFromLocalStorage().length;
-      if(data !== undefined) {
+      if (data !== undefined) {
        this.toggleCartVisible();
       }
-    })
+    });
   }
   toggleAuthVisible() {
     this.authVisible = !this.authVisible;
   }
   signInWithEmailEndPassword(userData) {
-    this.auth.signInWithEmailAndPassword(userData.email, userData.password)
+    this.auth.signInWithEmailAndPassword(userData.email, userData.password);
   }
   toggleCartVisible() {
     this.cartVisible = !this.cartVisible;

@@ -1,116 +1,5 @@
-.header {
-    background-color: #122538;
-}
-.layout {
-    margin: 0 32px;
-}
-.header-topline {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 5px;
-}
-.header-topline-phones, .header-topline-auth {
-    color: #fff;
-    cursor: pointer;
-}
-.phone {
-    margin-left: 10px;
-    border-bottom: 1px dashed #fff;
-}
-.phone:hover {
-    border: none;
-}
-.header-bottomline {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-.header-botomline-logo {
-    display: block;
-    padding: 5px 50px;
-}
-.menu-toogler {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,.5);
-    border-radius: 3px;
-    color: #fff;
-    display: block;
-    height: 40px;
-}
-.menu-toogler-text {
-    margin-left: 10px;
-}
-.header-search {
-    height: 40px;
-    margin-left: 25px;
-    width: 60%;
-}
-.header-search-form {
-    display: flex;
-    width: 100%;
-    align-items: center;
-}
-.header-search-form-inner {
-    display: flex;
-    flex: 1;
-}
-.header-search-form-inner-input-wraper {
-    width: 100%;
-}
-.header-search-form-inner-input {
-    width: 100%;
-    height: 40px;
-    padding-left: 40px;
-    background-image: url('src/assets/search.svg');
-    background-repeat: no-repeat;
-    background-position: 12px;
-    border: none;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-}
-.header-search-button {
-    display: block;
-    height: 40px;
-    font-size: 16px;
-    color: #fff;
-    background: #00A046;
-    border: none;
-    border-radius: 0 3px 3px 0;
-    line-height: normal;
-    padding: 1px 16px;
-}
-.header-actions {
-    display: flex;
-    list-style: none;
-    color: #a6a5a5;
-    margin: 0;
-    align-items: center;
-}
-.header-actions-item-icon {
-    font-size: 30px;
-    margin: 0 20px;
-    cursor: pointer;
-}
-.header-actions-item {
-    position: relative;
-}
-.header-actions-item-badge {
-    position: absolute;
-    right: 0;
-    top: 0;
-    display: block;
-    width: 20px;
-    height: 20px;
-    background: red;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-}
-.header-actions-item-badge-text {
-    margin: 0;
+.fill-remaining-space {
+  flex: 1 1 auto;
 }
 .modal-window-background {
     position: fixed;
@@ -205,7 +94,7 @@
 }
 .rememberme {
     display: none;
-    
+
 }
 .form-row-check-link {
     cursor: pointer;

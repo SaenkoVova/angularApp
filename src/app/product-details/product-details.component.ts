@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../services/products.service';
+import {Product} from '../models/Product';
 
 @Component({
   selector: 'app-product-details',
@@ -10,8 +11,15 @@ import { ProductsService } from '../services/products.service';
 
 export class ProductDetailsComponent implements OnInit {
 
-  public product = {
-    id: ''
+  public product: Product = {
+    id: null,
+    title: null,
+    price: null,
+    discountPrice: null,
+    imageUrl: null,
+    quantity: null,
+    orderQuantity: null,
+    sum: null
   };
   navigateItems = [
     {
@@ -38,10 +46,10 @@ export class ProductDetailsComponent implements OnInit {
       path: 'comments',
       active: false
     }
-  ]
+  ];
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private productsService: ProductsService) { }
 
   ngOnInit() {
@@ -49,11 +57,11 @@ export class ProductDetailsComponent implements OnInit {
     this.product.id = id;
     this.productsService.getProduct(id).subscribe(data => {
       this.product = Object.assign(this.product, data);
-    })
+    });
   }
   toggleTabActive(id) {
     for (const navigateItem of this.navigateItems) {
-      navigateItem.id == id ? navigateItem.active = true : navigateItem.active = false;
+      navigateItem.id === id ? navigateItem.active = true : navigateItem.active = false;
     }
   }
 }

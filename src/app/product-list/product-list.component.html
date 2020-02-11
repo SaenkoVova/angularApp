@@ -1,29 +1,47 @@
 <div class="container">
-    <div class="row" *ngIf="products?.length > 0; else noItems">
-      <div class="col d-flex justify-content-center" *ngFor="let product of products">
-        <div class="card d-flex position-relative" style="width: 18rem; height: 500px;">
-          <a routerLink="/products/{{product.id}}" class="text-decoration-none">
-            <img [src]="product.imageUrl" class="card-img-top" alt="cardImage" height="250">
-            <div class="card-body">
-              <h5 class="card-title text-dark title">{{product.title}}</h5>
-              <h6 class="text-muted card-discount" *ngIf="product.discountPrice">{{product.price}} ₴</h6>
-              <h3 class="text-danger" *ngIf="product.discountPrice">{{product.discountPrice}} ₴</h3>
-              <h3 class="text-dark" *ngIf="!product.discountPrice">{{product.price}} ₴</h3>
-              <p *ngIf="product.quantity > 10; else ending" class="available">Є в наявності</p>
-            </div>
+    <ul class="product-list" *ngIf="products?.length > 0; else noItems">
+      <li class="product-list-item" *ngFor="let product of products">
+        <figure>
+          <a routerLink="/products/{{product.id}}">
+            <img [src]="product.imageUrl" alt="productImage" height="250" width="250">
           </a>
-          <a (click)="addToCart(product)" class="btn btn-primary text-light card-button" *ngIf="!cartService.hasId(product.id); else added">Додати в корзину</a>
-        </div>
-      </div>
-    </div>
+          <figcaption>
+            <h1 class="mat-h4 product-list-item-title">{{product.title}}</h1>
+            <p>
+              <span class="mat-h1" [matBadge]="product.price" matBadgeOverlap="false" matBadgeSize="medium" *ngIf="product.discountPrice">{{product.discountPrice}} ₴</span>
+            </p>
+            <h3 *ngIf="!product.discountPrice" class="mat-h1">{{product.price}} ₴</h3>
+            <p *ngIf="product.quantity > 10; else ending" class="available">Є в наявності</p>
+            <button mat-flat-button color="primary"  (click)="addToCart(product)" class="card-button" *ngIf="!cartService.hasId(product.id); else added">Додати в корзину</button>
+          </figcaption>
+        </figure>
+      </li>
+    </ul>
+</div>
+
+<div class="paginator-wrapper" *ngIf="length">
+  <mat-paginator #paginator
+                 [length]="length.productsCounter"
+                 [pageSize]="pageSize"
+                 [pageIndex]="pageIndex"
+                 [pageSizeOptions]="[10, 25, 50, 100]"
+                 (page)="pageEvent = togglePage($event)">
+  </mat-paginator>
 </div>
 
 <ng-template #noItems>
-  <p>No items</p>
+  <div class="spinner-wrapper">
+    <mat-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="indeterminate"
+      [value]="0">
+    </mat-progress-spinner>
+  </div>
 </ng-template>
 <ng-template #ending>
   <p class="noavailable">Закінчується</p>
 </ng-template>
 <ng-template #added>
-  <a (click)="addToCartInit('product')" class="btn btn-success text-light card-button">Додано</a>
+  <button mat-flat-button color="warn" (click)="addToCartInit('product')" class="card-button">Додано</button>
 </ng-template>

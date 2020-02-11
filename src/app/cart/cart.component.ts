@@ -16,7 +16,7 @@ export class CartComponent implements OnInit {
   faPlus = faPlus;
   faCartPlus = faCartPlus;
   disabled = true;
-  items = []
+  items = [];
 
   constructor(private cartService: CartService) { }
 

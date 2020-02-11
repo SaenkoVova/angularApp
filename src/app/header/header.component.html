@@ -44,45 +44,42 @@
       </div>
     </div>
   </div>
-  <div class="layout">
-    <div class="header-topline">
-      <div class="header-topline-phones">
-        <fa-icon [icon]="faPhone"></fa-icon>
-        <span class="phone">{{phone}}</span>
-      </div>
-      <div class="header-topline-auth">
-        <a *ngIf="auth.user$ | async as user; else login" (click)="auth.signOut()">Вийти</a>
-      </div>
-    </div>
-    <div class="header-bottomline">
-      <a [routerLink]="['']" routerLinkActive="router-link-active" class="header-botomline-logo">
-        <img width="80" height="80" src="https://go-go.ua/image/catalog/logo_256.png" alt="">
-      </a>
-      <div class="header-search">
-        <form class="header-search-form">
-          <div class="header-search-form-inner">
-            <div class="header-search-form-inner-input-wraper">
-              <input type="text" [placeholder]="placeholder" class="header-search-form-inner-input">
-            </div>
-          </div>
-          <button type="submit" class="header-search-button">Знайти</button>
-        </form>
-      </div>
-      <ul class="header-actions">
-        <li class="header-actions-item">
-          <div class="header-actions-item-badge" *ngIf="cartCouter">
-            <p class="header-actions-item-badge-text">{{cartCouter}}</p>
-          </div>
-          <fa-icon [icon]="faCartArrowDown" class="header-actions-item-icon" (click)="toggleCartVisible()"></fa-icon>
-        </li>
-        <li class="header-actions-item">
-          <fa-icon [icon]="faHeart" class="header-actions-item-icon"></fa-icon>
-        </li>
-      </ul>
-    </div>
-  </div>
+
+  <mat-toolbar color="primary" class="toolbar">
+    <button mat-button routerLink="/">
+      <mat-icon>accessibility_new</mat-icon>
+      <span>My Application</span>
+    </button>
+    <span class="fill-remaining-space"></span>
+
+
+    <mat-form-field>
+      <mat-label>Пошук</mat-label>
+      <input matInput [formControl]="search">
+    </mat-form-field>
+
+    <span class="fill-remaining-space"></span>
+
+    <button mat-icon-button (click)="toggleCartVisible()">
+      <mat-icon
+        [matBadge]="cartCouter"
+        matBadgePosition="above after"
+        matBadgeColor="warn">add_shopping_cart
+      </mat-icon>
+    </button>
+
+    <button mat-icon-button>
+      <mat-icon>bookmark</mat-icon>
+    </button>
+
+    <button mat-icon-button *ngIf="auth.user$ | async as user; else login" (click)="auth.signOut()">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </mat-toolbar>
 </header>
 
 <ng-template #login>
-  <a (click)="toggleAuthVisible()">Увійти</a>
+  <button mat-icon-button (click)="toggleAuthVisible()">
+    <mat-icon>account_circle</mat-icon>
+  </button>
 </ng-template>

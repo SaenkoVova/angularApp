@@ -1,5 +1,8 @@
 <app-header></app-header>
-
+<ng-progress [color]="'#e67e22'"
+             [thick]="true"
+             [trickleSpeed]="500"
+             [spinner]="false"></ng-progress>
 <div class="container-fluid mt-5 p-5">
   <router-outlet></router-outlet>
 </div>

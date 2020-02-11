@@ -1,47 +1,41 @@
 <div class="cart-container">
     <div class="modal-window">
         <a class="modal-window-header-button" (click)="toggleCartVisible.emit()">
-            <h3>Кошик</h3>
+            <h3 class="mat-h1">Кошик</h3>
             <span class="burger"></span>
         </a>
-        <div *ngIf="items.length > 0; else noProducts">
-            <div *ngFor="let item of items" class="card mt-5">
-                <div class="card-body d-flex">
-                    <div class="d-flex">
-                        <button (click)="removeFromCart(item)" class="align-self-start mini-button-close-wraper">
-                            <span class="mini-button-close"></span>
-                        </button>
-                        <img [src]="item.imageUrl" alt="itemtitle" width="150" height="150">
-                    </div>
-                    <div class="card-body-right">
-                        <a routerLink="/products/{{item.id}}" routerLinkActive="router-link-active"  class="card-title">
-                            {{item.title}}
-                        </a>
-                        <div class="card-body-right-control-panel mt-5">
-                            <div class="price-badge">
-                                <h5 class="m-0" *ngIf="!item.discountPrice">{{item.price}} грн</h5>
-                                <h5 class="m-0" *ngIf="item.discountPrice">{{item.discountPrice}} грн</h5>
-                            </div>
-                            <div class="quantity-badge">
-                                <button class="quantity-badge-button" [disabled]="item.orderQuantity == 1" (click)="reduceQuantity(item)">
-                                    <fa-icon [icon]="faMinus"></fa-icon>
-                                </button>
-                                <input type="text" class="quantity-badge-input" [value]="item.orderQuantity">
-                                <button class="quantity-badge-button" (click)="increaseQuantity(item)">
-                                    <fa-icon [icon]="faPlus"></fa-icon>
-                                </button>
-                            </div>
-                            <div class="sum-badge">
-                                <small class="sum-badge-title">Сума</small>
-                                <h5>{{item.sum}}</h5>
-                            </div>
-                        </div>
-                    </div>
+        <ul class="cart-product-list" *ngIf="items.length > 0; else noProducts">
+          <li class="cart-product-list-item" *ngFor="let item of items">
+            <button (click)="removeFromCart(item)" class="mini-button-close-wraper">
+              <span class="mini-button-close"></span>
+            </button>
+            <img [src]="item.imageUrl" alt="image" width="150" height="150">
+            <div class="card-body-right">
+              <a routerLink="/products/{{item.id}}" routerLinkActive="router-link-active"  class="mat-h4">
+                {{item.title}}
+              </a>
+              <div class="card-body-right-control-panel">
+                <div class="price-badge">
+                  <h5 class="mat-h1 m-0" *ngIf="!item.discountPrice">{{item.price}} грн</h5>
+                  <h5 class="mat-h1 m-0" *ngIf="item.discountPrice">{{item.discountPrice}} грн</h5>
                 </div>
+                <div class="quantity-badge">
+                  <button class="quantity-badge-button" [disabled]="item.orderQuantity == 1" (click)="reduceQuantity(item)">
+                    <fa-icon [icon]="faMinus"></fa-icon>
+                  </button>
+                  <input type="text" class="quantity-badge-input" [value]="item.orderQuantity">
+                  <button class="quantity-badge-button" (click)="increaseQuantity(item)">
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                  </button>
+                </div>
+                <div class="sum-badge">
+                  <small class="sum-badge-title mat-h3">Сума</small>
+                  <h5 class="mat-h2">{{item.sum}}</h5>
+                </div>
+              </div>
             </div>
-            <button class="btn btn-danger m-5" (click)="clearCart()">Clear cart</button>
-            <button class="btn btn-success m-5" [routerLink]="['/order']" routerLinkActive="router-link-active" >To order</button>
-        </div>
+          </li>
+        </ul>
     </div>
 </div>
 
@@ -51,3 +45,41 @@
         <p class="text-center text-muted pl-3 cart-empty-text">Кошик порожній</p>
    </span>
 </ng-template>
+
+
+<!--<div *ngIf="items.length > 0; else noProducts">-->
+<!--  <div *ngFor="let item of items" class="card mt-5">-->
+<!--    <div class="card-body d-flex">-->
+<!--      <div class="d-flex">-->
+<!--        <button (click)="removeFromCart(item)" class="align-self-start mini-button-close-wraper">-->
+<!--          <span class="mini-button-close"></span>-->
+<!--        </button>-->
+<!--        <img [src]="item.imageUrl" alt="itemtitle" width="150" height="150">-->
+<!--      </div>-->
+<!--      <div class="card-body-right">-->
+<!--        <a routerLink="/products/{{item.id}}" routerLinkActive="router-link-active"  class="card-title">-->
+<!--          {{item.title}}-->
+<!--        </a>-->
+<!--        <div class="card-body-right-control-panel mt-5">-->
+<!--          <div class="price-badge">-->
+<!--            <h5 class="m-0" *ngIf="!item.discountPrice">{{item.price}} грн</h5>-->
+<!--            <h5 class="m-0" *ngIf="item.discountPrice">{{item.discountPrice}} грн</h5>-->
+<!--          </div>-->
+<!--          <div class="quantity-badge">-->
+<!--            <button class="quantity-badge-button" [disabled]="item.orderQuantity == 1" (click)="reduceQuantity(item)">-->
+<!--              <fa-icon [icon]="faMinus"></fa-icon>-->
+<!--            </button>-->
+<!--            <input type="text" class="quantity-badge-input" [value]="item.orderQuantity">-->
+<!--            <button class="quantity-badge-button" (click)="increaseQuantity(item)">-->
+<!--              <fa-icon [icon]="faPlus"></fa-icon>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--          <div class="sum-badge">-->
+<!--            <small class="sum-badge-title">Сума</small>-->
+<!--            <h5>{{item.sum}}</h5>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
