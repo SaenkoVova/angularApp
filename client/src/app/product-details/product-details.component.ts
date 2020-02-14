@@ -55,9 +55,9 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.product.id = id;
-    this.productsService.getProduct(id).subscribe(data => {
-      this.product = Object.assign(this.product, data);
-    });
+    // this.productsService.getProduct(id).subscribe(data => {
+    //   this.product = Object.assign(this.product, data);
+    // });
   }
   toggleTabActive(id) {
     for (const navigateItem of this.navigateItems) {

@@ -9,21 +9,21 @@ import { ProductsService } from '../services/products.service';
 })
 export class CharacteristicsInfoProductComponent implements OnInit {
 
-  product
+  product;
   constructor(
     private route: ActivatedRoute,
     private productsService: ProductsService
-  ) { 
-    
+  ) {
+
   }
 
   ngOnInit() {
     this.route.parent.params.subscribe(data => {
-      this.productsService.getProduct(data.id).subscribe(product => {
-        this.product = product;
-        console.log(this.product)
-      })
-    })
+      // this.productsService.getProduct(data.id).subscribe(product => {
+      //   this.product = product;
+      //   console.log(this.product);
+      // });
+    });
   }
 
 }

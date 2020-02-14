@@ -13,11 +13,6 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { CartComponent } from './cart/cart.component';
 import { ToOrderComponent } from './to-order/to-order.component';
 
-import { environment } from '../environments/environment';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { AllInfoProductComponent } from './all-info-product/all-info-product.component';
 import { AppRoutingNodule } from './app-routing.module';
 import { CharacteristicsInfoProductComponent } from './characteristics-info-product/characteristics-info-product.component';
@@ -54,9 +49,6 @@ import {
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
     RouterModule,
     AppRoutingNodule,
     BrowserAnimationsModule,
@@ -73,12 +65,7 @@ import {
     MatProgressSpinnerModule,
     NgProgressModule
   ],
-  providers: [
-    AngularFireModule,
-    AngularFireAuthModule,
-    AngularFireAuth,
-    AngularFirestore
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

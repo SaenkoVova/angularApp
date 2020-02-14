@@ -40,9 +40,9 @@ export class AllInfoProductComponent implements OnInit {
   generateProductInfo() {
     const id = this.route.snapshot.paramMap.get('id');
     this.product.id = id;
-    this.productsService.getProduct(id).subscribe(data => {
-      this.product = Object.assign(this.product, data);
-    });
+    // this.productsService.getProduct(id).subscribe(data => {
+    //   this.product = Object.assign(this.product, data);
+    // });
   }
   addToCart(product) {
     if (!this.cartService.hasId(product.id)) {

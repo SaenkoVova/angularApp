@@ -54,7 +54,7 @@ export class HeaderComponent implements OnInit {
     this.authVisible = !this.authVisible;
   }
   signInWithEmailEndPassword(userData) {
-    this.auth.signInWithEmailAndPassword(userData.email, userData.password);
+    this.auth.signUp(userData.email, userData.password);
   }
   toggleCartVisible() {
     this.cartVisible = !this.cartVisible;

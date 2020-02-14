@@ -7,5 +7,4 @@ export class Product {
     quantity: number;
     orderQuantity: number;
     sum: number;
-    prodNun: number;
 }

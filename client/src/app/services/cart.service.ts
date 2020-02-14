@@ -31,11 +31,11 @@ export class CartService {
     let identicElementsCounter = 0;
     const all = this.getProductFromLocalStorage();
     for (const item of all) {
-      if(item.id === product.id) {
+      if (item.id === product.id) {
         identicElementsCounter++;
       }
     }
-    if(!identicElementsCounter) {
+    if (!identicElementsCounter) {
       product.sum = this.calcSum(product);
       all.push(product);
       localStorage.setItem('products', JSON.stringify(all));
@@ -43,8 +43,8 @@ export class CartService {
   }
   refreshLocalStorage(product) {
     const all = this.getProductFromLocalStorage();
-    for(let item of all) {
-      if(item.id === product.id) {
+    for (const item of all) {
+      if (item.id === product.id) {
         item.orderQuantity = product.orderQuantity;
         item.quantity = product.quantity;
         item.sum = this.calcSum(item);
@@ -53,7 +53,7 @@ export class CartService {
     localStorage.setItem('products', JSON.stringify(all));
   }
   getProductFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('products') || '[]')
+    return JSON.parse(localStorage.getItem('products') || '[]');
   }
   addToCartEvent(product: Product) {
     this.prod = product;
@@ -61,7 +61,7 @@ export class CartService {
   }
   removeFromCartEvent(product: Product) {
     this.prod = product;
-    this.removeFromCartSubject$.next(product)
+    this.removeFromCartSubject$.next(product);
   }
   hasId(id) {
     return this.setAddedId.has(id);
@@ -74,8 +74,8 @@ export class CartService {
   }
   increaseQuantity(product) {
     for (const item of this.getProductFromLocalStorage()) {
-      if(item.id === product.id) {
-        if(item.quantity > 0) {
+      if (item.id === product.id) {
+        if (item.quantity > 0) {
           item.orderQuantity++;
           item.quantity--;
           this.refreshLocalStorage(item);
@@ -85,7 +85,7 @@ export class CartService {
   }
   reduceQuantity(product) {
     for (const item of this.getProductFromLocalStorage()) {
-      if(item.id === product.id) {
+      if (item.id === product.id) {
         item.orderQuantity--;
         item.quantity++;
         this.refreshLocalStorage(item);

@@ -15,7 +15,7 @@ import {NgprogressService} from '../services/ngprogress.service';
 export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
-  length;
+  length = 100;
   pageSize = 10;
   pageIndex = 0;
   pageEvent: PageEvent;
@@ -34,36 +34,23 @@ export class ProductListComponent implements OnInit {
         this.ngprogressService.ngProgressComplete();
       });
     this.addIdAfterReloading();
-    this.getProductQuantity()
-      .then(data => {
-        this.length = data;
-      });
-    this.productsService.addDoc();
   }
 
   loadProducts(pageSize, startAt, endAt) {
     return new Promise((resolve, reject) => {
       this.ngprogressService.ngProgressStart();
-      this.productsService.getProducts(pageSize, startAt, endAt).subscribe(actionArray => {
-        this.products = actionArray.map(item => {
-          return {
-            id: item.payload.doc.id,
-            ...(item.payload.doc.data() as Product)
-          } as Product;
-        });
-        resolve();
-      });
+      // this.productsService.getProducts(pageSize, startAt, endAt).subscribe(actionArray => {
+      //   this.products = actionArray.map(item => {
+      //     return {
+      //       id: item.payload.doc.id,
+      //       ...(item.payload.doc.data() as Product)
+      //     } as Product;
+      //   });
+      //   resolve();
+      // });
     });
   }
-  getProductQuantity() {
-    return new Promise((resolve, reject) => {
-      this.productsService.getProductsLength()
-        .subscribe(data => {
-          this.length = data;
-        });
-      resolve();
-    });
-  }
+
   addToCart(product) {
     if (!this.cartService.hasId(product.id)) {
       this.cartService.addToCart(product);
