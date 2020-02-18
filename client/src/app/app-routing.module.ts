@@ -8,6 +8,8 @@ import { AllInfoProductComponent } from './all-info-product/all-info-product.com
 import { CharacteristicsInfoProductComponent } from './characteristics-info-product/characteristics-info-product.component';
 import { PhotoInfoProductComponent } from './photo-info-product/photo-info-product.component';
 import { CommentsInfoProductComponent } from './comments-info-product/comments-info-product.component';
+import {SignupComponent} from './signup/signup.component';
+import {SignupGuard} from './guards/signup.guard';
 
 const routes: Routes = [
     {path: '', component: ProductListComponent},
@@ -15,9 +17,10 @@ const routes: Routes = [
         {path: '', component: AllInfoProductComponent},
         {path: 'characteristics', component: CharacteristicsInfoProductComponent},
         {path: 'photo', component: PhotoInfoProductComponent},
-        {path: 'comments', component: CommentsInfoProductComponent}
+        {path: 'comments', component: CommentsInfoProductComponent},
     ]},
     {path: 'cart', component: CartComponent},
+    {path: 'signup', component: SignupComponent, canActivate: [SignupGuard]},
     {path: 'order', component: ToOrderComponent}
 ];
 

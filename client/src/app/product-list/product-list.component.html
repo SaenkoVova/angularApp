@@ -2,7 +2,7 @@
     <ul class="product-list" *ngIf="products?.length > 0; else noItems">
       <li class="product-list-item" *ngFor="let product of products">
         <figure>
-          <a routerLink="/products/{{product.id}}">
+          <a routerLink="/products/{{product._id}}">
             <img [src]="product.imageUrl" alt="productImage" height="250" width="250">
           </a>
           <figcaption>
@@ -12,7 +12,7 @@
             </p>
             <h3 *ngIf="!product.discountPrice" class="mat-h1">{{product.price}} ₴</h3>
             <p *ngIf="product.quantity > 10; else ending" class="available">Є в наявності</p>
-            <button mat-flat-button color="primary"  (click)="addToCart(product)" class="card-button" *ngIf="!cartService.hasId(product.id); else added">Додати в корзину</button>
+            <button mat-flat-button color="primary"  (click)="addToCart(product)" class="card-button" *ngIf="!cartService.hasId(product._id); else added">Додати в корзину</button>
           </figcaption>
         </figure>
       </li>
@@ -21,7 +21,7 @@
 
 <div class="paginator-wrapper" *ngIf="length">
   <mat-paginator #paginator
-                 [length]="length.productsCounter"
+                 [length]="length"
                  [pageSize]="pageSize"
                  [pageIndex]="pageIndex"
                  [pageSizeOptions]="[10, 25, 50, 100]"

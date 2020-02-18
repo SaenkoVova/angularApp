@@ -28,7 +28,8 @@ import {
   MatInputModule, MatMenuModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatToolbarModule
 } from '@angular/material';
-
+import { SignupComponent } from './signup/signup.component';
+import {AuthService} from "./services/auth.service";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {
     AllInfoProductComponent,
     CharacteristicsInfoProductComponent,
     PhotoInfoProductComponent,
-    CommentsInfoProductComponent
+    CommentsInfoProductComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -63,9 +65,12 @@ import {
     MatMenuModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    NgProgressModule
+    NgProgressModule,
+    MatFormFieldModule
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

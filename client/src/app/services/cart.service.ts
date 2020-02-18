@@ -20,10 +20,10 @@ export class CartService {
 
   constructor() {}
 
-  getCartProducts() {
-    return this.cartProducts;
-  }
   addToCart(product) {
+    product.orderQuantity = 1;
+    product.sum = 0;
+    console.log(product);
     this.addToLocalStorage(product);
     this.cartProducts = this.getProductFromLocalStorage();
   }
@@ -31,7 +31,7 @@ export class CartService {
     let identicElementsCounter = 0;
     const all = this.getProductFromLocalStorage();
     for (const item of all) {
-      if (item.id === product.id) {
+      if (item._id === product._id) {
         identicElementsCounter++;
       }
     }
@@ -44,7 +44,7 @@ export class CartService {
   refreshLocalStorage(product) {
     const all = this.getProductFromLocalStorage();
     for (const item of all) {
-      if (item.id === product.id) {
+      if (item._id === product._id) {
         item.orderQuantity = product.orderQuantity;
         item.quantity = product.quantity;
         item.sum = this.calcSum(item);
@@ -74,7 +74,7 @@ export class CartService {
   }
   increaseQuantity(product) {
     for (const item of this.getProductFromLocalStorage()) {
-      if (item.id === product.id) {
+      if (item._id === product._id) {
         if (item.quantity > 0) {
           item.orderQuantity++;
           item.quantity--;
@@ -85,7 +85,7 @@ export class CartService {
   }
   reduceQuantity(product) {
     for (const item of this.getProductFromLocalStorage()) {
-      if (item.id === product.id) {
+      if (item._id === product._id) {
         item.orderQuantity--;
         item.quantity++;
         this.refreshLocalStorage(item);
@@ -96,6 +96,6 @@ export class CartService {
     return item.discountPrice ? item.orderQuantity * item.discountPrice : item.orderQuantity * item.price;
   }
   removeFromCart(product) {
-    localStorage.setItem('products', JSON.stringify(this.getProductFromLocalStorage().filter(i => i.id !== product.id)));
+    localStorage.setItem('products', JSON.stringify(this.getProductFromLocalStorage().filter(i => i._id !== product._id)));
   }
 }

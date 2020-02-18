@@ -7,13 +7,14 @@ const config = require('config');
 exports.signUp = async (req, res) => {
     try {
         const errors = validationResult(req);
-
+        console.log(req.body);
         if(!errors.isEmpty()) {
             return res.status(400).json({
                 errors: errors.array(),
                 message: 'Некоректні данні при реєстрації'
             })
         }
+        console.log(req.body);
         const {email, password} = req.body;
         const candidate = await User.findOne({email});
 
@@ -21,12 +22,19 @@ exports.signUp = async (req, res) => {
             return res.status(400).json({ message: 'Користувач уже існує' });
         }
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user = new User({ email, hashedPassword });
+        const user = new User({ email, password: hashedPassword });
+        console.log(req.body);
         await user.save();
-        res.status(201).json({ message: 'Користувача створено' });
+        //res.status(200).json({ message: 'Користувача створено' });
+       const token = jwt.sign(
+           { userId: user.id },
+           config.get('jwtSecret'),
+           {expiresIn: '1h'}
+       );
+        res.status(200).json({token, userId: user.id});
     }
     catch (e) {
-        res.send(500).json({message: 'Щось пішло не так, спробуйте знову'});
+        res.status(500).json({message: 'Щось пішло не так, спробуйте знову'});
     }
 };
 
@@ -37,14 +45,14 @@ exports.signIn = async (req, res) => {
         if(!errors.isEmpty()) {
             return res.status(400).json({
                 errors: errors.array(),
-                message: 'Некоректні данні при реєстрації'
+                message: 'Некоректні данні при вході'
             })
         }
         const {email, password} = req.body;
         const user = await User.findOne({email});
 
         if(!user) {
-            return res.status(400).json('Користувача не знайдено');
+            return res.status(400).json({message: 'Користувача не знайдено'});
         }
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch) {
@@ -56,7 +64,7 @@ exports.signIn = async (req, res) => {
             { expiresIn: '1h' }
         );
 
-        res.json({token, userId: user.id});
+        await res.json({token, userId: user.id});
     }
     catch (e) {
         res.send(500).json({message: 'Щось пішло не так, спробуйте знову'});

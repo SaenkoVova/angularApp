@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../services/products.service';
 import { faAward, faClock, faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from '../services/cart.service';
-import {Product} from '../models/Product';
+import {NgprogressService} from '../services/ngprogress.service';
 
 @Component({
   selector: 'app-all-info-product',
@@ -16,40 +16,35 @@ export class AllInfoProductComponent implements OnInit {
   faClock = faClock;
   faCartPlus = faCartPlus;
   faHeart = faHeart;
-  product: Product = {
-    id: null,
-    title: null,
-    price: null,
-    discountPrice: null,
-    imageUrl: null,
-    quantity: null,
-    orderQuantity: null,
-    sum: null
-  };
+  product;
 
   constructor(
    private route: ActivatedRoute,
    private productsService: ProductsService,
-   public cartService: CartService
+   public cartService: CartService,
+   private ngProgress: NgprogressService
   ) { }
 
   ngOnInit() {
-    this.generateProductInfo();
+    this.getProduct();
     this.addIdAfterReloading();
   }
-  generateProductInfo() {
+  getProduct() {
+    this.ngProgress.ngProgressComplete();
+    this.ngProgress.ngProgressStart();
     const id = this.route.snapshot.paramMap.get('id');
-    this.product.id = id;
-    // this.productsService.getProduct(id).subscribe(data => {
-    //   this.product = Object.assign(this.product, data);
-    // });
+    this.productsService.getProduct(id)
+      .subscribe(data => {
+        this.product = data.product;
+        this.ngProgress.ngProgressComplete();
+      });
   }
   addToCart(product) {
-    if (!this.cartService.hasId(product.id)) {
+    if (!this.cartService.hasId(product._id)) {
       this.cartService.addToCart(product);
       this.cartService.addToCartEvent(product);
     }
-    this.cartService.addId(product.id);
+    this.cartService.addId(product._id);
   }
   addToCartInit(product) {
     this.cartService.addToCartEvent(product);
@@ -58,7 +53,7 @@ export class AllInfoProductComponent implements OnInit {
     if (!this.cartService.setAddedId.size) {
       const all = this.cartService.getProductFromLocalStorage();
       for (const item of all) {
-        this.cartService.addId(item.id);
+        this.cartService.addId(item._id);
       }
     }
   }

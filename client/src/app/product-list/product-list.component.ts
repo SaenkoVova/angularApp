@@ -15,13 +15,10 @@ import {NgprogressService} from '../services/ngprogress.service';
 export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
-  length = 100;
+  length;
   pageSize = 10;
   pageIndex = 0;
   pageEvent: PageEvent;
-  startAt = 1;
-  endAt = this.pageSize;
-
 
   constructor(
     private productsService: ProductsService,
@@ -29,34 +26,28 @@ export class ProductListComponent implements OnInit {
     private ngprogressService: NgprogressService) { }
 
   ngOnInit() {
-    this.loadProducts(this.pageSize, this.startAt, this.endAt)
-      .then(() => {
-        this.ngprogressService.ngProgressComplete();
-      });
+    this.loadProducts(this.pageSize, this.pageIndex);
+
     this.addIdAfterReloading();
   }
 
-  loadProducts(pageSize, startAt, endAt) {
-    return new Promise((resolve, reject) => {
-      this.ngprogressService.ngProgressStart();
-      // this.productsService.getProducts(pageSize, startAt, endAt).subscribe(actionArray => {
-      //   this.products = actionArray.map(item => {
-      //     return {
-      //       id: item.payload.doc.id,
-      //       ...(item.payload.doc.data() as Product)
-      //     } as Product;
-      //   });
-      //   resolve();
-      // });
-    });
+  loadProducts(pageSize, pageIndex) {
+    this.ngprogressService.ngProgressComplete();
+    this.ngprogressService.ngProgressStart();
+    this.productsService.getProducts(pageSize, pageIndex)
+      .subscribe(data => {
+        this.products = data.array;
+        this.length = data.length;
+        this.ngprogressService.ngProgressComplete();
+      });
   }
 
   addToCart(product) {
-    if (!this.cartService.hasId(product.id)) {
+    if (!this.cartService.hasId(product._id)) {
       this.cartService.addToCart(product);
       this.cartService.addToCartEvent(product);
     }
-    this.cartService.addId(product.id);
+    this.cartService.addId(product._id);
   }
   addToCartInit(product) {
     this.cartService.addToCartEvent(product);
@@ -65,16 +56,11 @@ export class ProductListComponent implements OnInit {
     if (!this.cartService.setAddedId.size) {
       const all = this.cartService.getProductFromLocalStorage();
       for (const item of all) {
-        this.cartService.addId(item.id);
+        this.cartService.addId(item._id);
       }
     }
   }
   togglePage(event) {
-    this.startAt = event.pageIndex * event.pageSize + 1;
-    this.endAt = (event.pageIndex * event.pageSize) + event.pageSize;
-    console.log(this.startAt, this.endAt);
-    this.loadProducts(event.pageSize, this.startAt, this.endAt).then(() => {
-      this.ngprogressService.ngProgressComplete();
-    });
+    this.loadProducts(event.pageSize, event.pageIndex);
   }
 }

@@ -1,7 +1,7 @@
-<div class="container-fluid d-flex mt-5 flex-wrap" *ngIf="product">
-    <img [attr.src]="product?.imageUrl" class="mb-5" width="400" height="auto" alt="">
-    <div class="details-dashboard offset-2 d-flex flex-column">
-        <p *ngIf="product.quantity > 10; else ending" class="available"> 
+<div *ngIf="product">
+    <img [attr.src]="product?.imageUrl" width="400" height="auto" alt="">
+    <div class="details-dashboard">
+        <p *ngIf="product.quantity > 10; else ending" class="available">
             <fa-icon [icon] = "faCloud"></fa-icon> Є в наявності
         </p>
         <div class="actions">
@@ -15,7 +15,7 @@
                 <h4 class="text-muted">{{product.price}} ₴</h4>
             </div>
             <div class="buttons-badge">
-                <button class="btn btn-success ml-4 mr-4 btn-buy" (click)="addToCart(product)" *ngIf="!cartService.hasId(product.id); else added" > 
+                <button (click)="addToCart(product)" *ngIf="!cartService.hasId(product._id); else added" >
                     <fa-icon [icon]="faCartPlus"></fa-icon> Купити
                 </button>
                 <button class=" btn add-to-favorites">

@@ -1,10 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { faBriefcase} from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
-import {FormBuilder, FormControl} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { CartService } from '../services/cart.service';
+import {ErrorStateMatcher} from '@angular/material/core';
+import {User} from '../models/User';
+import {GeneralService} from '../services/general.service';
+import {Router} from "@angular/router";
 
-
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,28 +20,34 @@ import { CartService } from '../services/cart.service';
 })
 export class HeaderComponent implements OnInit {
 
-  faBriefcase = faBriefcase;
-
-  rememberMe = true;
   authVisible = false;
   cartVisible = false;
+  error = null;
   cartCouter;
-  checkoutForm;
+  isAuth = false;
   search = new FormControl('');
   constructor(
     public auth: AuthService,
-    private formBuilder: FormBuilder,
-    private cartService: CartService) {
-      this.checkoutForm = this.formBuilder.group({
-        email: '',
-        password: ''
-      });
-    }
+    private cartService: CartService,
+    public generalService: GeneralService,
+    private router: Router
+  ) {}
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+  passwordFormControl = new FormControl('', [
+    Validators.required,
+    Validators.minLength(8)
+  ]);
 
+  matcher = new MyErrorStateMatcher();
   ngOnInit() {
     this.observeForAddToCart();
     this.observeForRemoveFromCart();
+    this.isAuth = this.auth.getAuthStateFromLocalStorage().isAuth;
   }
+
   observeForAddToCart() {
     this.cartService.addToCartChanged$.subscribe(data => {
       this.cartCouter = this.cartService.getProductFromLocalStorage().length;
@@ -53,10 +67,33 @@ export class HeaderComponent implements OnInit {
   toggleAuthVisible() {
     this.authVisible = !this.authVisible;
   }
-  signInWithEmailEndPassword(userData) {
-    this.auth.signUp(userData.email, userData.password);
-  }
   toggleCartVisible() {
     this.cartVisible = !this.cartVisible;
+  }
+  signIn(email, password) {
+    this.generalService.unsetError();
+    let user: User = {
+      email,
+      password,
+      userId: null,
+      token: null
+    };
+    this.auth.signIn(user)
+      .subscribe(data => {
+          user = {
+            email,
+            password: null,
+            userId: data.userId,
+            token: data.token
+          };
+          this.auth.setUser(user);
+          this.toggleAuthVisible();
+          this.isAuth = this.auth.getAuthStateFromLocalStorage();
+          this.router.navigate(['/']);
+      },
+      error => {
+        this.generalService.setError();
+        this.error = error.error.message;
+      });
   }
 }

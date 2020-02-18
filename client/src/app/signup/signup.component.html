@@ -1,0 +1,28 @@
+<div class="form-wrapper">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        Вкажіть правильний email
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        Це поле <strong>обов'язкове</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Пароль</mat-label>
+      <input matInput type="password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="passwordFormControl.hasError('required')">
+        Це поле <strong>обов'язкове</strong>
+      </mat-error>
+      <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+        Пароль дуже <strong>короткий</strong>
+      </mat-error>
+    </mat-form-field>
+    <button mat-flat-button color="primary"
+            [disabled]="passwordFormControl.hasError('minlength') || passwordFormControl.hasError('required')
+                || emailFormControl.hasError('required') || emailFormControl.hasError('email')"
+              (click)="signUp(emailFormControl.value, passwordFormControl.value)">Зареєструватися</button>
+  </form>
+  </div>

@@ -12,14 +12,12 @@ import {Product} from '../models/Product';
 export class ProductDetailsComponent implements OnInit {
 
   public product: Product = {
-    id: null,
+    _id: null,
     title: null,
     price: null,
     discountPrice: null,
     imageUrl: null,
-    quantity: null,
-    orderQuantity: null,
-    sum: null
+    quantity: null
   };
   navigateItems = [
     {
@@ -54,7 +52,7 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.product.id = id;
+    this.product._id = id;
     // this.productsService.getProduct(id).subscribe(data => {
     //   this.product = Object.assign(this.product, data);
     // });
