@@ -1,10 +1,10 @@
 <div *ngIf="product">
-    <div class="container-fluid">
-        <h1>{{product.title}}</h1>
+    <div>
+        <h1 class="mat-headline">{{product.title}}</h1>
         <ul class="actions">
             <li *ngFor="let item of navigateItems" class="actions-item">
                 <a routerLink ="/products/{{product._id}}/{{item.path}}" routerLinkActive="router-link-active"
-                    class="actions-item-link" [class.active]="item.active" (click)="toggleTabActive(item._id)">{{item.title}}</a>
+                    class="actions-item-link" [class.active]="item.active" (click)="toggleTabActive(item.id)">{{item.title}}</a>
             </li>
         </ul>
         <router-outlet></router-outlet>

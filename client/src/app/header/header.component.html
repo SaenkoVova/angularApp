@@ -50,14 +50,6 @@
     </button>
     <span class="fill-remaining-space"></span>
 
-
-    <mat-form-field>
-      <mat-label>Пошук</mat-label>
-      <input matInput [formControl]="search">
-    </mat-form-field>
-
-    <span class="fill-remaining-space"></span>
-
     <button mat-icon-button (click)="toggleCartVisible()">
       <mat-icon
         [matBadge]="cartCouter"
@@ -70,7 +62,7 @@
       <mat-icon>bookmark</mat-icon>
     </button>
 
-    <button mat-button *ngIf="isAuth; else login">
+    <button mat-button routerLink="/profile" *ngIf="isAuth; else login">
       <mat-icon>account_circle</mat-icon>
       <span>Особистий кабінет</span>
     </button>

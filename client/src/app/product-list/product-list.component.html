@@ -1,4 +1,11 @@
 <div class="container">
+    <div class="categories-container">
+      <mat-selection-list #categorycontainer>
+        <mat-list-option *ngFor="let category of categories">
+          {{category.title}}
+        </mat-list-option>
+      </mat-selection-list>
+    </div>
     <ul class="product-list" *ngIf="products?.length > 0; else noItems">
       <li class="product-list-item" *ngFor="let product of products">
         <figure>

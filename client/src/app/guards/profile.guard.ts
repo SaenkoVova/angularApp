@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
 import { Observable } from 'rxjs';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from "../services/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class SignupGuard implements CanActivate {
-
+export class ProfileGuard implements CanActivate {
   constructor(
-    private authService: AuthService,
+    private auth: AuthService,
     private router: Router
   ) {
   }
@@ -17,12 +16,13 @@ export class SignupGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return new Observable<boolean>(observer => {
-      if (this.authService.getAuthStateFromLocalStorage().isAuth) {
-        observer.next(false);
-        this.router.navigate(['/']);
-      } else {
+      if(this.auth.getAuthStateFromLocalStorage().isAuth) {
         observer.next(true);
+      } else {
+        observer.next(false);
+        this.router.navigate(['/signup']);
       }
     });
   }
+
 }

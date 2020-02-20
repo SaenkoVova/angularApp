@@ -20,7 +20,7 @@ exports.loadPart = async (req, res) => {
 exports.getById = async (req, res) => {
     const {id} = req.body;
     const product = await Product.find({_id: ObjectID(id)});
-    res.status(200).json({
-       product
-    });
+    res.status(200).json(
+       ...product
+    );
 };

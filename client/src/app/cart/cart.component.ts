@@ -42,6 +42,8 @@ export class CartComponent implements OnInit {
     this.cartService.removeFromCartEvent(product);
     this.cartService.removeId(product._id);
     this.toggleCartVisible.emit();
+    this.sum = 0;
+    this.getFinallySum();
   }
   getFinallySum() {
     for (const item of this.items) {

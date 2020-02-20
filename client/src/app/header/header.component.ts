@@ -5,7 +5,9 @@ import { CartService } from '../services/cart.service';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {User} from '../models/User';
 import {GeneralService} from '../services/general.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -25,7 +27,6 @@ export class HeaderComponent implements OnInit {
   error = null;
   cartCouter;
   isAuth = false;
-  search = new FormControl('');
   constructor(
     public auth: AuthService,
     private cartService: CartService,

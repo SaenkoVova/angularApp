@@ -30,6 +30,9 @@ import {
 } from '@angular/material';
 import { SignupComponent } from './signup/signup.component';
 import {AuthService} from "./services/auth.service";
+import { ProfileComponent } from './profile/profile.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -43,7 +46,8 @@ import {AuthService} from "./services/auth.service";
     CharacteristicsInfoProductComponent,
     PhotoInfoProductComponent,
     CommentsInfoProductComponent,
-    SignupComponent
+    SignupComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +70,9 @@ import {AuthService} from "./services/auth.service";
     MatPaginatorModule,
     MatProgressSpinnerModule,
     NgProgressModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatListModule
   ],
   providers: [
     AuthService

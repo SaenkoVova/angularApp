@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, NavigationEnd, NavigationStart, Router} from '@angular/router';
 import { ProductsService } from '../services/products.service';
 import {Product} from '../models/Product';
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-product-details',
@@ -48,14 +49,39 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productsService: ProductsService) { }
+    private productsService: ProductsService,
+    private router: Router) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.product._id = id;
-    // this.productsService.getProduct(id).subscribe(data => {
-    //   this.product = Object.assign(this.product, data);
-    // });
+    this.getProduct();
+    this.getActiveTab();
+  }
+  getProduct() {
+    this.route.params.subscribe(params => {
+      const id = params.id;
+      this.productsService.getProduct(id).subscribe(data => {
+        this.product = data;
+        this.productsService.addNode(data);
+      });
+    });
+  }
+  getActiveTab() {
+    this.route.url.subscribe(() => {
+      console.log(this.route.snapshot.firstChild.data);
+      const childPath = this.route.snapshot.firstChild.data;
+      if (childPath.path === '') {
+        this.toggleTabActive(1);
+      }
+      if (childPath.path === 'characteristics') {
+        this.toggleTabActive(2);
+      }
+      if (childPath.path === 'photo') {
+        this.toggleTabActive(3);
+      }
+      if (childPath.path === 'comments') {
+        this.toggleTabActive(4);
+      }
+    });
   }
   toggleTabActive(id) {
     for (const navigateItem of this.navigateItems) {

@@ -1,34 +1,57 @@
-<div *ngIf="product">
-    <img [attr.src]="product?.imageUrl" width="400" height="auto" alt="">
-    <div class="details-dashboard">
-        <p *ngIf="product.quantity > 10; else ending" class="available">
-            <fa-icon [icon] = "faCloud"></fa-icon> Є в наявності
-        </p>
-        <div class="actions">
-            <div class="price-badge" *ngIf="product.discountPrice">
-                <h2 class="text-danger m-0">{{product.discountPrice}} ₴</h2>
-            </div>
-            <div class="price-badge" *ngIf="!product.discountPrice">
-               <h2 class="text-danger m-0">{{product.price}} ₴</h2>
-            </div>
-            <div *ngIf="product.discountPrice" class="price-info">
-                <h4 class="text-muted">{{product.price}} ₴</h4>
-            </div>
-            <div class="buttons-badge">
-                <button (click)="addToCart(product)" *ngIf="!cartService.hasId(product._id); else added" >
-                    <fa-icon [icon]="faCartPlus"></fa-icon> Купити
-                </button>
-                <button class=" btn add-to-favorites">
-                    <fa-icon [icon]="faHeart"></fa-icon>
-                </button>
-            </div>
-        </div>
-    </div>
+<div *ngIf="product" class="image-wrapper">
+  <img [attr.src]="product?.imageUrl" width="500" height="auto" alt="image">
+  <div class="info">
+    <p *ngIf="product.quantity > 10; else ending" class="available">
+      <mat-icon>done</mat-icon> Є в наявності
+    </p>
+    <ul class="info-actions">
+      <li class="price" class="mat-h1">{{product.price}} ₴</li>
+      <li class="mat-h1">{{product.discountPrice}} ₴</li>
+      <li>
+        <button mat-flat-button color="primary"
+                (click)="addToCart(product)" *ngIf="!cartService.hasId(product._id); else added">
+          Купити<mat-icon>add_shopping_cart</mat-icon>
+        </button>
+      </li>
+      <li>
+        <button mat-flat-button color="primary">
+          <mat-icon>favorite_border</mat-icon>
+        </button>
+      </li>
+    </ul>
+  </div>
 </div>
+      <!--<div *ngIf="product">-->
+<!--    <img [attr.src]="product?.imageUrl" width="400" height="auto" alt="">-->
+<!--    <div class="details-dashboard">-->
+<!--        <p *ngIf="product.quantity > 10; else ending" class="available">-->
+<!--            <fa-icon [icon] = "faCloud"></fa-icon> Є в наявності-->
+<!--        </p>-->
+<!--        <div class="actions">-->
+<!--            <div class="price-badge" *ngIf="product.discountPrice">-->
+<!--                <h2 class="text-danger m-0">{{product.discountPrice}} ₴</h2>-->
+<!--            </div>-->
+<!--            <div class="price-badge" *ngIf="!product.discountPrice">-->
+<!--               <h2 class="text-danger m-0">{{product.price}} ₴</h2>-->
+<!--            </div>-->
+<!--            <div *ngIf="product.discountPrice" class="price-info">-->
+<!--                <h4 class="text-muted">{{product.price}} ₴</h4>-->
+<!--            </div>-->
+<!--            <div class="buttons-badge">-->
+<!--                <button (click)="addToCart(product)" *ngIf="!cartService.hasId(product._id); else added" >-->
+<!--                    <fa-icon [icon]="faCartPlus"></fa-icon> Купити-->
+<!--                </button>-->
+<!--                <button class=" btn add-to-favorites">-->
+<!--                    <fa-icon [icon]="faHeart"></fa-icon>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <ng-template #ending>
-    <p class="noavailable"><fa-icon [icon]="faClock"></fa-icon> Закінчується</p>
+    <p class="noavailable">Закінчується</p>
 </ng-template>
 <ng-template #added>
-    <a (click)="addToCartInit('product')" class="btn btn-success text-light ml-4 mr-4 btn-buy">Товар вже в кошику</a>
+    <button mat-flat-button color="primary" (click)="addToCartInit('product')">Товар вже в кошику</button>
   </ng-template>

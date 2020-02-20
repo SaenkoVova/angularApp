@@ -19,6 +19,7 @@ export class ProductListComponent implements OnInit {
   pageSize = 10;
   pageIndex = 0;
   pageEvent: PageEvent;
+  categories = [];
 
   constructor(
     private productsService: ProductsService,
@@ -27,7 +28,6 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.loadProducts(this.pageSize, this.pageIndex);
-
     this.addIdAfterReloading();
   }
 
@@ -37,11 +37,17 @@ export class ProductListComponent implements OnInit {
     this.productsService.getProducts(pageSize, pageIndex)
       .subscribe(data => {
         this.products = data.array;
+        this.loadCategories();
         this.length = data.length;
         this.ngprogressService.ngProgressComplete();
       });
   }
-
+  loadCategories() {
+    this.productsService.getCategories()
+      .subscribe( categories => {
+        this.categories = categories;
+      });
+  }
   addToCart(product) {
     if (!this.cartService.hasId(product._id)) {
       this.cartService.addToCart(product);
