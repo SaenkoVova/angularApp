@@ -1,0 +1,24 @@
+* {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.responds {
+  padding: 0 20px 0 20px;
+  border-left: 1px solid #a6a5a5;
+  margin: 20px;
+}
+.responds-item {
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.responds-item-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px 0 10px;
+}
+.responds-item-content {
+  padding: 0 10px 10px 10px;
+  line-height: 30px;
+}

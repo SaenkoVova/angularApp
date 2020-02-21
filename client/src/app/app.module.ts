@@ -35,6 +35,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {RatingModule} from 'ng-starrating';
+import { RespondPopupComponent } from './respond-popup/respond-popup.component';
+import { RespondsListComponent } from './responds-list/responds-list.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import {RatingModule} from 'ng-starrating';
     PhotoInfoProductComponent,
     CommentsInfoProductComponent,
     SignupComponent,
-    ProfileComponent
+    ProfileComponent,
+    RespondPopupComponent,
+    RespondsListComponent
   ],
   imports: [
     BrowserModule,

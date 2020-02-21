@@ -1,0 +1,44 @@
+<div class="respond-wrapper">
+  <div class="respond-container">
+    <div class="respond-container-header">
+      <div>
+        <h1 class="mat-h1">Написати відгук</h1>
+      </div>
+      <div (click)="toggleVisibleEmit()">
+        <span class="burger"></span>
+      </div>
+    </div>
+    <div class="respond-container-content">
+      <form>
+        <mat-form-field class="input-field" appearance="fill" [floatLabel]="true">
+          <mat-label>Ваш відгук</mat-label>
+          <input matInput type="text" [formControl]="commentFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="commentFormControl.hasError('required')">
+            Це поле <strong>обов'язкове</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-field" appearance="fill" [floatLabel]="true">
+          <mat-label>Ваше ім'я</mat-label>
+          <input matInput type="text" [formControl]="nameFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="nameFormControl.hasError('required')">
+            Це поле <strong>обов'язкове</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-field" appearance="fill" [floatLabel]="true">
+          <mat-label>Ваш email</mat-label>
+          <input matInput type="email" [readonly]="" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Вкажіть правильний email
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Це поле <strong>обов'язкове</strong>
+          </mat-error>
+        </mat-form-field>
+        <button mat-flat-button color="primary" class="send-button" [disabled]="commentFormControl.hasError('required') ||
+            nameFormControl.hasError('required') || emailFormControl.hasError('email')
+              || emailFormControl.hasError('required')">Відправити</button>
+        <button mat-flat-button color="warn" (click)="toggleVisibleEmit()">Скасувати</button>
+      </form>
+    </div>
+  </div>
+</div>

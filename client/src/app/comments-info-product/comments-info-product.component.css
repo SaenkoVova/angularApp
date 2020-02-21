@@ -21,6 +21,7 @@
 .input-field {
   display: block;
   flex-grow: 1;
+  margin: 10px 0;
 }
 .comments {
   display: flex;
@@ -49,4 +50,11 @@
 }
 .likes-counter {
   padding: 0 10px;
+}
+.send-button {
+  display: block;
+  padding: 0 20px;
+}
+.link-pointer {
+  cursor: pointer;
 }

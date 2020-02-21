@@ -6,8 +6,6 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import {User} from '../models/User';
 import {GeneralService} from '../services/general.service';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

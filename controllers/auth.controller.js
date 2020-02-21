@@ -23,7 +23,6 @@ exports.signUp = async (req, res) => {
         }
         const hashedPassword = await bcrypt.hash(password, 12);
         const user = new User({ email, password: hashedPassword });
-        console.log(req.body);
         await user.save();
         //res.status(200).json({ message: 'Користувача створено' });
        const token = jwt.sign(

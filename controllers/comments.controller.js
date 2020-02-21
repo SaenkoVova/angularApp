@@ -1,7 +1,18 @@
 const Comment = require('../models/Comment');
 
-exports.getCategories = async (req, res) => {
-    let categories = await Category.find();
+exports.getComments = async (req, res) => {
+    let comments = await Comment.find();
+    res.status(200).json(comments);
+};
 
-    res.status(200).json(categories);
+exports.sendComment = async (req, res) => {
+    const comment = new Comment(req.body);
+    await comment.save();
+    res.status(200).json({
+        message: 'Ваш відгук додано'
+    })
+};
+
+exports.sendRespond = async (req, res) => {
+
 };

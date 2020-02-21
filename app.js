@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const AuthRoute = require('./routes/auth.routes');
 const LoadRoute = require('./routes/product.routes');
-const Product = require('./models/Product');
+const CommentRoute = require('./routes/comment.route')
 
 const app = express();
 
@@ -15,6 +15,8 @@ app.use(express.json({ extended: true }));
 app.use('/api/auth', AuthRoute);
 
 app.use('/api/load', LoadRoute);
+
+app.use('/api/send', CommentRoute);
 
 const PORT = config.get('port') || 5000;
 

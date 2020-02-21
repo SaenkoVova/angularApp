@@ -1,0 +1,15 @@
+<ul class="responds">
+  <li class="responds-item" *ngFor="let respond of responds">
+    <div class="responds-item-header">
+      <div>
+        <h2 class="mat-h2">{{respond.name}}</h2>
+      </div>
+      <div>
+        <p>{{respond.date | date}}</p>
+      </div>
+    </div>
+    <div class="responds-item-content">
+      <p>{{respond.text}}</p>
+    </div>
+  </li>
+</ul>

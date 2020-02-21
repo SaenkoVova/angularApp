@@ -1,55 +1,75 @@
+<app-respond-popup *ngIf="respondPopupVisible" (toggleVisible)="toggleVisible()"></app-respond-popup>
 <div class="comments-wrapper">
   <div class="comment-body">
     <div>
-      <star-rating [value]="5" [totalstars]="5" [checkedcolor]="'gold'" [uncheckedcolor]="'black'" [size]="'40px'" [readonly]="false" (rate)="onRate($event)"></star-rating>
+      <star-rating [value]="rating" [totalstars]="5" [checkedcolor]="'gold'" [uncheckedcolor]="'black'" [size]="'40px'" [readonly]="false" (rate)="onRate($event)"></star-rating>
     </div>
     <div>
       <form>
         <mat-form-field class="input-field" appearance="fill" [floatLabel]="true">
           <mat-label>Ваш відгук</mat-label>
-          <input matInput type="text">
+          <input matInput type="text" [formControl]="commentFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="commentFormControl.hasError('required')">
+            Це поле <strong>обов'язкове</strong>
+          </mat-error>
         </mat-form-field>
         <mat-form-field class="input-field" appearance="fill" [floatLabel]="true">
           <mat-label>Ваше ім'я</mat-label>
-          <input matInput type="text">
+          <input matInput type="text" [formControl]="nameFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="nameFormControl.hasError('required')">
+            Це поле <strong>обов'язкове</strong>
+          </mat-error>
         </mat-form-field>
-        <button mat-flat-button color="primary">Відправити</button>
+        <mat-form-field class="input-field" appearance="fill" [floatLabel]="true">
+          <mat-label>Ваш email</mat-label>
+          <input matInput type="email" [readonly]="" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Вкажіть правильний email
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Це поле <strong>обов'язкове</strong>
+          </mat-error>
+        </mat-form-field>
+        <button mat-flat-button color="primary" class="send-button" [disabled]="commentFormControl.hasError('required') ||
+            nameFormControl.hasError('required') || emailFormControl.hasError('email')
+              || emailFormControl.hasError('required')" (click)="doComment(commentFormControl.value, nameFormControl.value)">Відправити</button>
       </form>
     </div>
   </div>
   <h1 class="mat-h1">Усі відгуки</h1>
   <ul class="comments">
-    <li class="comments-item">
+    <li class="comments-item" *ngFor="let comment of comments">
       <div class="comments-item-header">
         <div class="row">
           <mat-icon color="primary">shopping_cart</mat-icon>
-          <h2 class="mat-h2">Client name</h2>
+          <h2 class="mat-h2">{{comment.username}}</h2>
         </div>
         <div class="row">
-          <p class="mat-h3 comment-date">comment date</p>
-          <mat-icon>report</mat-icon>
+          <p class="mat-h3 comment-date">{{comment.date | date}}</p>
+          <mat-icon class="link-pointer">report</mat-icon>
         </div>
       </div>
       <div class="comments-item-content">
         <div>
-          <star-rating [value]="5" [totalstars]="5" [checkedcolor]="'gold'" [uncheckedcolor]="'black'" [size]="'40px'" [readonly]="false" (rate)="onRate($event)"></star-rating>
+          <star-rating [value]="comment.rating" [totalstars]="5" [checkedcolor]="'gold'" [uncheckedcolor]="'black'" [size]="'40px'" [readonly]="true" (rate)="onRate($event)"></star-rating>
         </div>
         <div>
-          <p class="mat-h3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consectetur dicta fugit incidunt laborum minima neque nulla optio, quo quos sed, vel veniam! Dolor eos, hic ipsa pariatur quasi quia!</p>
+          <p class="mat-h3">{{comment.text}}</p>
         </div>
       </div>
       <div class="comments-item-footer">
-        <div class="row">
-          <mat-icon>redo</mat-icon>
-          <p class="comment-answer">Відповісти</p>
+        <div class="row" (click)="toggleVisible()">
+          <mat-icon class="link-pointer">redo</mat-icon>
+          <p class="comment-answer link-pointer">Відповісти</p>
         </div>
         <div class="row">
-          <mat-icon>thumb_up</mat-icon>
-          <p class="likes-counter">0</p>
-          <mat-icon>thumb_down</mat-icon>
-          <p class="likes-counter">0</p>
+          <mat-icon class="link-pointer">thumb_up</mat-icon>
+          <p class="likes-counter">{{comment.likesCounter}}</p>
+          <mat-icon class="link-pointer">thumb_down</mat-icon>
+          <p class="likes-counter">{{comment.dislikesCounter}}</p>
         </div>
       </div>
+      <app-responds-list *ngIf="comment.responds.length" [responds]="comment.responds"></app-responds-list>
     </li>
   </ul>
 </div>
