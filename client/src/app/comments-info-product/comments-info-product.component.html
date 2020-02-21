@@ -1,1 +1,55 @@
-<p>comments-info-product works!</p>
+<div class="comments-wrapper">
+  <div class="comment-body">
+    <div>
+      <star-rating [value]="5" [totalstars]="5" [checkedcolor]="'gold'" [uncheckedcolor]="'black'" [size]="'40px'" [readonly]="false" (rate)="onRate($event)"></star-rating>
+    </div>
+    <div>
+      <form>
+        <mat-form-field class="input-field" appearance="fill" [floatLabel]="true">
+          <mat-label>Ваш відгук</mat-label>
+          <input matInput type="text">
+        </mat-form-field>
+        <mat-form-field class="input-field" appearance="fill" [floatLabel]="true">
+          <mat-label>Ваше ім'я</mat-label>
+          <input matInput type="text">
+        </mat-form-field>
+        <button mat-flat-button color="primary">Відправити</button>
+      </form>
+    </div>
+  </div>
+  <h1 class="mat-h1">Усі відгуки</h1>
+  <ul class="comments">
+    <li class="comments-item">
+      <div class="comments-item-header">
+        <div class="row">
+          <mat-icon color="primary">shopping_cart</mat-icon>
+          <h2 class="mat-h2">Client name</h2>
+        </div>
+        <div class="row">
+          <p class="mat-h3 comment-date">comment date</p>
+          <mat-icon>report</mat-icon>
+        </div>
+      </div>
+      <div class="comments-item-content">
+        <div>
+          <star-rating [value]="5" [totalstars]="5" [checkedcolor]="'gold'" [uncheckedcolor]="'black'" [size]="'40px'" [readonly]="false" (rate)="onRate($event)"></star-rating>
+        </div>
+        <div>
+          <p class="mat-h3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consectetur dicta fugit incidunt laborum minima neque nulla optio, quo quos sed, vel veniam! Dolor eos, hic ipsa pariatur quasi quia!</p>
+        </div>
+      </div>
+      <div class="comments-item-footer">
+        <div class="row">
+          <mat-icon>redo</mat-icon>
+          <p class="comment-answer">Відповісти</p>
+        </div>
+        <div class="row">
+          <mat-icon>thumb_up</mat-icon>
+          <p class="likes-counter">0</p>
+          <mat-icon>thumb_down</mat-icon>
+          <p class="likes-counter">0</p>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

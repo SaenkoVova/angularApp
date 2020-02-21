@@ -16,4 +16,7 @@ router.get(
   '/categories',
     CategoriesController.getCategories
 );
+router.get(
+  'comments',
+);
 module.exports = router;

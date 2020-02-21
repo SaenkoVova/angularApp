@@ -66,7 +66,8 @@ export class ProductListComponent implements OnInit {
       }
     }
   }
-  togglePage(event) {
+  togglePage(event): PageEvent {
     this.loadProducts(event.pageSize, event.pageIndex);
+    return;
   }
 }

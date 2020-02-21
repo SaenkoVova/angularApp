@@ -1,6 +1,6 @@
 <div *ngIf="product">
     <div>
-        <h1 class="mat-headline">{{product.title}}</h1>
+        <h1 class="mat-headline product-title">{{product.title}}</h1>
         <ul class="actions">
             <li *ngFor="let item of navigateItems" class="actions-item">
                 <a routerLink ="/products/{{product._id}}/{{item.path}}" routerLinkActive="router-link-active"

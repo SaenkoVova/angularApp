@@ -11,19 +11,15 @@ export class CharacteristicsInfoProductComponent implements OnInit {
 
   product;
   constructor(
-    private route: ActivatedRoute,
     private productsService: ProductsService
   ) {
 
   }
 
   ngOnInit() {
-    this.route.parent.params.subscribe(data => {
-      // this.productsService.getProduct(data.id).subscribe(product => {
-      //   this.product = product;
-      //   console.log(this.product);
-      // });
-    });
+    this.getProduct();
   }
-
+  getProduct() {
+    this.productsService.node$.subscribe(node => this.product = node);
+  }
 }

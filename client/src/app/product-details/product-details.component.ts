@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, NavigationEnd, NavigationStart, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { ProductsService } from '../services/products.service';
 import {Product} from '../models/Product';
-import {filter} from "rxjs/operators";
+import {NgprogressService} from '../services/ngprogress.service';
 
 @Component({
   selector: 'app-product-details',
@@ -50,18 +50,21 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productsService: ProductsService,
-    private router: Router) { }
+    private ngprogressService: NgprogressService
+  ) { }
 
   ngOnInit() {
     this.getProduct();
     this.getActiveTab();
   }
   getProduct() {
+    this.ngprogressService.ngProgressStart();
     this.route.params.subscribe(params => {
       const id = params.id;
       this.productsService.getProduct(id).subscribe(data => {
         this.product = data;
         this.productsService.addNode(data);
+        this.ngprogressService.ngProgressComplete();
       });
     });
   }

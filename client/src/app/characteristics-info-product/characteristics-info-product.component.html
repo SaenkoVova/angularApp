@@ -1,11 +1,11 @@
-<div class="container-fluid" *ngIf="product">
-    <p>Характеристики {{product.title}}</p>
-    <table class="table table-striped">
-        <tbody>
-            <tr *ngFor="let item of product.characteristics">
-            <td>{{item.characteristic}}</td>
-            <td>{{item.value}}</td>
-            </tr>
-        </tbody>
-    </table>
+<div *ngIf="product">
+  <p class="mat-h1 product-title">Характеристики {{product.title}}</p>
+  <table class="table">
+    <tbody>
+      <tr *ngFor="let item of product.characteristics">
+        <td class="mat-h3">{{item.title}}</td>
+        <td class="mat-h3">{{item.value}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

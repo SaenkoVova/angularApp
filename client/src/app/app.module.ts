@@ -29,10 +29,12 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { SignupComponent } from './signup/signup.component';
-import {AuthService} from "./services/auth.service";
+import {AuthService} from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
-import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {MatListModule} from "@angular/material/list";
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatListModule} from '@angular/material/list';
+import {MatTableModule} from '@angular/material/table';
+import {RatingModule} from 'ng-starrating';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,9 @@ import {MatListModule} from "@angular/material/list";
     NgProgressModule,
     MatFormFieldModule,
     MatAutocompleteModule,
-    MatListModule
+    MatListModule,
+    MatTableModule,
+    RatingModule
   ],
   providers: [
     AuthService

@@ -2,6 +2,9 @@
     text-decoration: none!important;
     list-style: none;
 }
+.product-title {
+  padding: 15px 30px;
+}
 .actions {
     display: flex;
     background: #f5f5f5;

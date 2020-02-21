@@ -1,1 +1,7 @@
-<p>photo-info-product works!</p>
+<div *ngIf="product">
+  <div class="products-wrapper">
+    <div *ngFor="let item of product.images" class="image-wrapper">
+      <img [src]="item" alt="image" width="100%" height="auto">
+    </div>
+  </div>
+</div>
