@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
   ]);
   passwordFormControl = new FormControl('', [
     Validators.required,
-    Validators.minLength(8)
+    Validators.minLength(5)
   ]);
 
   matcher = new MyErrorStateMatcher();

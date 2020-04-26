@@ -20,6 +20,13 @@ app.use('/api/send', CommentRoute);
 
 const PORT = config.get('port') || 5000;
 
+if(process.env.NODE_ENV === 'production') {
+    app.use('/', express.static(path.join(__dirname, 'client', 'dist', 'client')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'dist', 'client', 'index.html'));
+    })
+}
+
 async function start() {
     try {
          await mongoose.connect(config.get('mongoUri'), {
