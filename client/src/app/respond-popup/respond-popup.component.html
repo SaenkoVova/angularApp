@@ -26,7 +26,7 @@
         </mat-form-field>
         <mat-form-field class="input-field" appearance="fill" [floatLabel]="true">
           <mat-label>Ваш email</mat-label>
-          <input matInput type="email" [readonly]="" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+          <input matInput type="email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
           <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
             Вкажіть правильний email
           </mat-error>
@@ -36,7 +36,9 @@
         </mat-form-field>
         <button mat-flat-button color="primary" class="send-button" [disabled]="commentFormControl.hasError('required') ||
             nameFormControl.hasError('required') || emailFormControl.hasError('email')
-              || emailFormControl.hasError('required')">Відправити</button>
+              || emailFormControl.hasError('required')" (click)="doRespond(
+                emailFormControl.value, commentFormControl.value,
+                nameFormControl.value)">Відправити</button>
         <button mat-flat-button color="warn" (click)="toggleVisibleEmit()">Скасувати</button>
       </form>
     </div>

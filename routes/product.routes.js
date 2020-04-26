@@ -17,7 +17,7 @@ router.get(
   '/categories',
     CategoriesController.getCategories
 );
-router.get(
+router.post(
   '/comments',
     CommentsController.getComments
 );

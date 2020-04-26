@@ -6,6 +6,7 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import {User} from '../models/User';
 import {GeneralService} from '../services/general.service';
 import {Router} from '@angular/router';
+import {CommentsService} from '../services/comments.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -29,7 +30,8 @@ export class HeaderComponent implements OnInit {
     public auth: AuthService,
     private cartService: CartService,
     public generalService: GeneralService,
-    private router: Router
+    private router: Router,
+    private commentsService: CommentsService
   ) {}
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -44,6 +46,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.observeForAddToCart();
     this.observeForRemoveFromCart();
+    this.observeForDoCommentEvent();
     this.isAuth = this.auth.getAuthStateFromLocalStorage().isAuth;
   }
 
@@ -52,6 +55,13 @@ export class HeaderComponent implements OnInit {
       this.cartCouter = this.cartService.getProductFromLocalStorage().length;
       if (data !== undefined) {
        this.toggleCartVisible();
+      }
+    });
+  }
+  observeForDoCommentEvent() {
+    this.commentsService.doCommentChanged$.subscribe(data => {
+      if (data === true) {
+        this.toggleAuthVisible();
       }
     });
   }
@@ -88,7 +98,6 @@ export class HeaderComponent implements OnInit {
           this.auth.setUser(user);
           this.toggleAuthVisible();
           this.isAuth = this.auth.getAuthStateFromLocalStorage();
-          this.router.navigate(['/']);
       },
       error => {
         this.generalService.setError();

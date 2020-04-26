@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Respond} from '../models/Respond';
 
 @Component({
   selector: 'app-responds-list',
@@ -7,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class RespondsListComponent implements OnInit {
 
-  @Input() responds: Array<any> = [];
+  @Input() responds: Array<Respond> = [];
 
   constructor() { }
 

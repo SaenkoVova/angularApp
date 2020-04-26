@@ -1,4 +1,5 @@
 export class Comment {
+  _id?: string;
   productId: string;
   userId: string;
   text: string;

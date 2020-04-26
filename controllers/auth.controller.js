@@ -7,14 +7,12 @@ const config = require('config');
 exports.signUp = async (req, res) => {
     try {
         const errors = validationResult(req);
-        console.log(req.body);
         if(!errors.isEmpty()) {
             return res.status(400).json({
                 errors: errors.array(),
                 message: 'Некоректні данні при реєстрації'
             })
         }
-        console.log(req.body);
         const {email, password} = req.body;
         const candidate = await User.findOne({email});
 
@@ -24,7 +22,6 @@ exports.signUp = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 12);
         const user = new User({ email, password: hashedPassword });
         await user.save();
-        //res.status(200).json({ message: 'Користувача створено' });
        const token = jwt.sign(
            { userId: user.id },
            config.get('jwtSecret'),

@@ -1,4 +1,4 @@
-<app-respond-popup *ngIf="respondPopupVisible" (toggleVisible)="toggleVisible()"></app-respond-popup>
+<app-respond-popup *ngIf="respondPopupVisible" [commentId]="commentId" (toggleVisible)="toggleVisible()"></app-respond-popup>
 <div class="comments-wrapper">
   <div class="comment-body">
     <div>
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="comments-item-footer">
-        <div class="row" (click)="toggleVisible()">
+        <div class="row" (click)="toggleVisible(comment._id)">
           <mat-icon class="link-pointer">redo</mat-icon>
           <p class="comment-answer link-pointer">Відповісти</p>
         </div>

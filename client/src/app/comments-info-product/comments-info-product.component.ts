@@ -22,6 +22,7 @@ export class CommentsInfoProductComponent implements OnInit {
   error: string;
   rating = 0;
   respondPopupVisible = false;
+  commentId;
 
   commentFormControl = new FormControl('', [
     Validators.required
@@ -39,11 +40,10 @@ export class CommentsInfoProductComponent implements OnInit {
     private commentsService: CommentsService,
     private productsService: ProductsService,
     private authService: AuthService,
-    private ngprogressService: NgprogressService
+    private ngprogressService: NgprogressService,
   ) { }
 
   ngOnInit() {
-    this.loadComments();
     this.getProduct();
     this.emailFormControl.setValue(this.authService.getAuthStateFromLocalStorage().email);
   }
@@ -51,8 +51,8 @@ export class CommentsInfoProductComponent implements OnInit {
     this.rating = $event.newValue;
   }
 
-  loadComments() {
-      this.commentsService.getComments()
+  loadComments(id) {
+      this.commentsService.getComments(id)
         .subscribe(
           (comments) => {
             this.comments = comments;
@@ -66,29 +66,37 @@ export class CommentsInfoProductComponent implements OnInit {
   getProduct() {
     this.productsService.node$.subscribe(node => {
       this.product = node;
+      if (Object.keys(this.product).length) {
+        console.log(this.product._id);
+        this.loadComments(this.product._id);
+      }
     });
   }
   doComment(comment, name) {
-    this.ngprogressService.ngProgressStart();
-    this.comment = {
-      userId: this.authService.getAuthStateFromLocalStorage().userId || '',
-      productId: this.product._id,
-      username: name,
-      text: comment,
-      email: this.authService.getAuthStateFromLocalStorage().email || this.emailFormControl.value,
-      rating: this.rating,
-    };
-    this.commentsService.doComment(this.comment)
-      .subscribe(data => {
-        console.log(data);
-        this.loadComments();
-        this.commentFormControl.setValue('');
-        this.nameFormControl.setValue('');
-        this.rating = 0;
-        this.ngprogressService.ngProgressComplete();
-      });
+    if (this.authService.getAuthStateFromLocalStorage().isAuth) {
+      this.ngprogressService.ngProgressStart();
+      this.comment = {
+        userId: this.authService.getAuthStateFromLocalStorage().userId || '',
+        productId: this.product._id,
+        username: name,
+        text: comment,
+        email: this.authService.getAuthStateFromLocalStorage().email || this.emailFormControl.value,
+        rating: this.rating,
+      };
+      this.commentsService.doComment(this.comment)
+        .subscribe(data => {
+          this.loadComments(this.product._id);
+          this.commentFormControl.setValue('');
+          this.nameFormControl.setValue('');
+          this.rating = 0;
+          this.ngprogressService.ngProgressComplete();
+        });
+    } else {
+      this.commentsService.doCommentEvent();
+    }
   }
-  toggleVisible() {
+  toggleVisible(commentId?) {
+    this.commentId = commentId;
     this.respondPopupVisible = !this.respondPopupVisible;
   }
 }
