@@ -3,7 +3,7 @@ const ObjectID = require('mongoose').Types.ObjectId;
 
 exports.loadPart = async (req, res) => {
     let products = [];
-    const productQuantity = await Product.count();
+    const productQuantity = await Product.countDocuments();
     const { pageSize, pageIndex } = req.body;
     if(pageIndex === 0) {
         products = await Product.find().limit(pageSize);
