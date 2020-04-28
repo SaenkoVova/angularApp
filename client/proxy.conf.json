@@ -1,10 +1,6 @@
 {
   "/api/*": {
-<<<<<<< HEAD
-    "target": "http://5.53.125.133",
-=======
     "target": "http://5.53.125.133:80",
->>>>>>> 55e9a5dec13c327cbefd3094d14a50a09db8b35e
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
