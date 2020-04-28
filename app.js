@@ -22,10 +22,23 @@ app.use('/api/send', CommentRoute);
 const PORT = config.get('port') || 5000;
 
 if(process.env.NODE_ENV === 'production') {
+<<<<<<< HEAD
     app.use('/', express.static(path.join(__dirname, 'client', 'dist', 'angularApp')));
     app.get('*', (req, res) => {
+=======
+    app.use(express.static(path.join(__dirname, 'client', 'dist', 'angularApp')));
+    app.use(express.static(path.join(__dirname, 'admin', 'dist')));
+    
+    app.get('/', (req, res) => {
+>>>>>>> 390cf8eb191e0058a7511fdea49db4bdf6ad1e4f
         res.sendFile(path.resolve(__dirname, 'client', 'dist', 'angularApp', 'index.html'));
     })
+    app.get('/admin', (req, res) => {
+        res.sendFile(path.join(__dirname, 'admin', 'dist', 'index.html'));
+    })
+    
+    
+    
 }
 
 async function start() {
