@@ -1,18 +1,32 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <v-row>
+      <v-col cols="12" md="2">
+        <drawer></drawer>
+      </v-col>
+      <v-col cols="12" md="10" style="padding-top: 0;">
+        <admin-header></admin-header>
+        <info-grid></info-grid>
+        <orders-chart></orders-chart>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+
+import Drawer from '../components/Drawer';
+import AdminHeader from '../components/AdminHeader';
+import InfoGrid from '../components/InfoGrid';
+import OrdersChart from '../components/OrdersChart';
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    Drawer,
+    AdminHeader,
+    InfoGrid,
+    OrdersChart
   }
 }
 </script>
